@@ -10,7 +10,7 @@
     
     <title>
         
-            Android Device Monitor 文件管理的常见问题 | 
+            Qt��������ȡ�Ի������� | 
         
         knightaoko
     </title>
@@ -27,7 +27,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Knightaoko">
     <meta name="description" content="It always seems impossible until it&#39;s done">
-    <meta name="keywords" content="null,Android Studio,adb shell">
+    <meta name="keywords" content="null,Qt,C++">
 
     <!--iOS -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -48,9 +48,9 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://knightaoko.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Android Device Monitor 文件管理的常见问题 | knightaoko">
+    <meta property="og:title" content="Qt��������ȡ�Ի������� | knightaoko">
     <meta property="og:description" content="It always seems impossible until it&#39;s done">
-    <meta property="og:article:tag" content="Android Studio"> <meta property="og:article:tag" content="adb shell"> 
+    <meta property="og:article:tag" content="Qt"> <meta property="og:article:tag" content="C++"> 
 
     <!--[if lte IE 9]>
         <link rel="stylesheet" href="/css/ie-blocker.css">
@@ -234,7 +234,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#背景"><span class="post-toc-number">1.</span> <span class="post-toc-text">背景</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题1：设备-Offline-File-Explorer-空空如也"><span class="post-toc-number">2.</span> <span class="post-toc-text">问题1：设备 Offline,  File Explorer 空空如也</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题2：File-Explorer-中的文件无法访问"><span class="post-toc-number">3.</span> <span class="post-toc-text">问题2：File Explorer 中的文件无法访问</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题3：File-Explorer-中的文件无法-pull（下载）"><span class="post-toc-number">4.</span> <span class="post-toc-text">问题3：File Explorer 中的文件无法 pull（下载）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">5.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        
 
         <!--
         <li class="mdl-menu__item">
@@ -258,11 +258,19 @@
                 
     <!-- Paradox Post Header -->
     
-        <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(http://img.blog.csdn.net/20170316145505719?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)">
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script>
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')');
+</script>
+
+        
     
             <p class="article-headline-p">
-                Android Device Monitor 文件管理的常见问题
+                Qt��������ȡ�Ի�������
             </p>
         </div>
 
@@ -281,7 +289,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Knightaoko</strong>
-        <span>3月 19, 2017</span>
+        <span>12月 23, 2016</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -302,7 +310,7 @@
         </button>
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
             <li class="mdl-menu__item">在其它设备中阅读本文章</li>
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAADk0lEQVR42u3ay26EMAwFUP7/p9ttpQrm2k6Aqier0YgBcrLw+HF8WT/WgQAHDhw4cODAgQMHjhdzHPG6vv70YcFvf9/h7Juz9+ntBQcOHDhw7OP4EIpOHn925fVLX2/j+onJUeV7wYEDBw4cuzl6weyMY359AjfZCw4cOHDgeANH9aWTEHt95zzY48CBAweOv8hx/Sp5STFqCLWCNA4cOHDgeA9HoaAWB8heqM4D6oK94MCBAweODRzVgYY3f35gvgMHDhw4cIxXPuLWC5P5OF2eEJ6+Dw4cOHDgWMqRjDsXglZcnpsndb1RvHJGiwMHDhw4Whx50KrSJGNwc7hJAMaBAwcOHDs4ep/zgYbkpXtjc/noQ7kLhwMHDhw4Bhy9pk7O2ivkTYJ0YRQDBw4cOHBs4MgTtjy5mjeEqtzNdhcOHDhw4LiRYz5w0Eu0ksPojVaMAi0OHDhw4Ag48oB6T1uoOuhQJcOBAwcOHLs5JonW0VpVyrxEmP8twIEDBw4cd3IkgbYXmKthNf/t6FBx4MCBA8dSjrw907t+MnCQN7fy4iAOHDhw4HiKo5cm5ffMS4GTIuZ1QogDBw4cOHZwJMW4XsjMA16vIDgP2Dhw4MCBYx9HsqXqCELvPnn4rB4SDhw4cOC4h6OaSvWC3Nq0rZqklYuDOHDgwIFjEUc+0JwkeDlTL4j2ElEcOHDgwLGbYzLKlhfy8nBY5V6Q5uHAgQMHjhs5eklU0v7pJXL5/QsJJA4cOHDgWMpRDai9MlyehuXHsKw1hQMHDhw4tuUsk3G3vOFUKNsN0sXt8x04cODAgeOSo9raqQ69VVPEalJXJcOBAwcOHPdw5ElRr/yXF/vygF0docCBAwcOHM9y9Ap/ecGuOlQRbS8+SBw4cODAsZtjbTtn3lKaFxCjN8GBAwcOHNs48sBWDW/VAl/euMqTyVEKhwMHDhw4WhzJVvPNV+9cPZhVfwhw4MCBA8dajurKRxnmm8lLgZOhChw4cODAsZbjiFd1A9WyYD70kCefC9pOOHDgwIGjxZEE1145rxqG5wMNCwItDhw4cOBYxJEnYMk3CxpCxXQxD+E4cODAgeNtHPkme8MTvXZXfhg4cODAgeM9HL3f5s2kXqupek8cOHDgwHEPR1KeS1KsapDOByl6LagPlDhw4MCBYwPH2oGGaqkueeKkJfbwfAcOHDhw/DMOCwcOHDhw4MCBAwcOHC9b36qUqjuaEmbQAAAAAElFTkSuQmCC">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAAC4klEQVR42u3aQW7jQAwEQP//09nrArtSmqSC2JyaU2DHkmoChCZ7Xl9Hrhc2NjY2NjY2Njb2W7Jf8fr795PP/ufG/7x+dbWrd3vPjI2NjX0C+5t//UVqdbOuPpVcLXlmbGxs7HPYedFKbnP/QPnG5WXv/jmxsbGxsfMWIm8zqmUMGxsbG/upApaMkKrgvP3AxsbGxp4MlaqPOB9d9doebGxs7NPYk6D3t37+5XwbGxsb+23YvZUPjPKo4OuHFzY2NvZW9v0RmV4om5fAJEieh77Y2NjYJ7DzcX9vDJRHtslGNF/HxsbGXsrOS0gvGHgquM2DiigewMbGxl7Hzr/6V5uHfAg1GTlFxzexsbGxD2DnY6BkLJU3Cb3iVy262NjY2FvZ+Zf+6vH3alMxv2NzloaNjY394exeWPvUxuXFKd/oywKJjY2NfQw7HzlVB/rJpyJArznBxsbGXsqeHKDpHaPMt6Ncou5LHTY2NvZSdj7QfxVX71P3hXC0KdjY2Nir2cnoJx8YTV6prjxUxsbGxt7K7h3TKTQA8SBpvjXloRI2Njb2CnY+4p+Pk6KDNfHYqPqnwsbGxt7NzpuQ6nA/f9xJJNCMB7CxsbEXsfODlb1gYNKi9LYeGxsb+xx278t9vhHVwtaLH6JIAxsbG/sY9qQtqQ6Y8k3PI+cHUhFsbGzsD2cnN86LXH70ZxJCRDEwNjY29jHsvNhUfydvS6rHhiILNjY29mp2vgX5oCeJZvOW5oHrY2NjYx/G7j1QNTauHgMaRRHY2NjYS9nVlY91eoOkfKPzq2FjY2PvZk/KQ/Jub/A02e5RKoKNjY39sexe0aqOlnqxcfXA0OV1sLGxsQ9g5zFtfoUqrFr8Ci0QNjY2NnZriJ8crKnGBs1BFTY2Njb2IEjoRQv5NaOAARsbG/sA9k8A8vL2VLhbLmDY2NjYK9iTo43PlqVCcFu8FzY2NvZW9jkLGxsbGxsbGxsb+23WH1eJchQQ+6n9AAAAAElFTkSuQmCC">
         </ul>
     
 
@@ -314,7 +322,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/Android-Studio/">Android Studio</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/adb-shell/">adb shell</a>
+        <a class="post_tag-link" href="/tags/C/">C++</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Qt/">Qt</a>
     </ul>
     
 
@@ -328,7 +336,7 @@
     <!-- Leancloud Views -->
         <a class="post_share-link" href="#">
             <li class="mdl-menu__item">
-                <span id="/2017/03/19/Android Device Monitor 文件管理的常见问题/" class="leancloud-views_num" data-flag-title="Android Device Monitor 文件管理的常见问题">
+                <span id="/2016/12/23/Qt主界面获取对话框数据/" class="leancloud-views_num" data-flag-title="Qt��������ȡ�Ի�������">
      &nbsp;浏览量
 </span>
 
@@ -342,7 +350,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android Device Monitor 文件管理的常见问题&url=https://knightaoko.github.io//2017/03/19/Android Device Monitor 文件管理的常见问题/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Qt��������ȡ�Ի�������&url=https://knightaoko.github.io//2016/12/23/Qt主界面获取对话框数据/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -351,7 +359,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Android Device Monitor 文件管理的常见问题&url=https://knightaoko.github.io//2017/03/19/Android Device Monitor 文件管理的常见问题/index.html&via=Knightaoko" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Qt��������ȡ�Ի�������&url=https://knightaoko.github.io//2016/12/23/Qt主界面获取对话框数据/index.html&via=Knightaoko" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -360,7 +368,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://knightaoko.github.io//2017/03/19/Android Device Monitor 文件管理的常见问题/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://knightaoko.github.io//2016/12/23/Qt主界面获取对话框数据/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -369,7 +377,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://knightaoko.github.io//2017/03/19/Android Device Monitor 文件管理的常见问题/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://knightaoko.github.io//2016/12/23/Qt主界面获取对话框数据/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -381,7 +389,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=knightaoko&title=Android Device Monitor 文件管理的常见问题&summary=It always seems impossible until it&#39;s done&pics=https://knightaoko.github.io/img/favicon.png&url=https://knightaoko.github.io/2017/03/19/Android Device Monitor 文件管理的常见问题/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=knightaoko&title=Qt��������ȡ�Ի�������&summary=It always seems impossible until it&#39;s done&pics=https://knightaoko.github.io/img/favicon.png&url=https://knightaoko.github.io/2016/12/23/Qt主界面获取对话框数据/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -399,61 +407,22 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a><strong>背景</strong></h2><p>最近在看《第一行代码》（第二版）中关于数据存储方案的介绍。数据的状态分为两种：瞬时状态和持久状态，一般保存在内存中的数据随着活动的关闭，数据也就销毁了，如果我们想保存这些数据，该怎么办呢？书中介绍了三种实现数据持久化的方法，分别是：文件存储，SharedPreference 存储以及数据库存储。</p>
-<p>在学习第一种数据持久化方法文件存储的时候，我们通过 Context 类中的 openFileOutput() 方法创建一个指定了保存路径的 FileOutputStream 对象 out，然后用这个 out 对象去创建一个 OutputStreamWriter 对象，之后再用这个 OutputStreamWriter 对象创建一个 BufferedWriter 对象 writer，我们就是通过这个 writer 的 write() 方法向文件输出流写入我们想要保存的数据的。文件写入数据之后默认保存在 /data/data/(package name)/files 目录下。我们可以通过 Android Studio 中的 Android Device Monitor 去查看，Android Device Monitor 的打开方法如下所示。</p>
-<p><img src="http://img.blog.csdn.net/20170316145505719?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="打开 Android Device Monitor"></p>
-<h2 id="问题1：设备-Offline-File-Explorer-空空如也"><a href="#问题1：设备-Offline-File-Explorer-空空如也" class="headerlink" title="问题1：设备 Offline,  File Explorer 空空如也"></a><strong>问题1：设备 Offline,  File Explorer 空空如也</strong></h2><p>打开 Android Device Monitor 之后，发现里面什么都没有，左边的面板上显示了一台模拟器，但出于 offline 状态，不对呀，我的模拟器命名开着的呀，它正在运行我刚刚写的 app 呢，怎么这里会显示离线状态呢？于是我试着 Google 去找解决方案。</p>
-<p><img src="http://img.blog.csdn.net/20170316145939956?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=" File Explorer 不显示文件"></p>
-<p>在 StackOverflow 上我发现了有人和我一样也碰到了这个问题，不过底下的回答寥寥无几，我找到了一个最高赞的答案（其实也就一个赞….），如下图所示，他的意思是他也不明白其中的具体原理，但是他发现如果先打开 Android Device Monitor，然后再运行模拟器，就可以解决这个问题。</p>
-<p><img src="http://img.blog.csdn.net/20170316150034301?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="解决 File Explorer 不显示文件（from SO）"></p>
-<p>于是我按照这个方法尝试，先打开 Android Device Monitor，里面什么也没有，然后打开模拟器，随着模拟器的启动，Monitor 左侧面板出现了 offline 的模拟器，然后再相继启动很多服务，最后就显示为 online 了，如下图所示，这样我们就可以通过 Monitor 中的 File Explorer 标签访问模拟器中的文件了。</p>
-<p><img src="http://img.blog.csdn.net/20170316150112791?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=" 解决 File Explorer 不显示文件"></p>
-<h2 id="问题2：File-Explorer-中的文件无法访问"><a href="#问题2：File-Explorer-中的文件无法访问" class="headerlink" title="问题2：File Explorer 中的文件无法访问"></a><strong>问题2：File Explorer 中的文件无法访问</strong></h2><p>还记得刚刚说的吗，openFileOutput() 方法生成的文件存放在一个默认路径，即 /data/data/(package name)/files 下。由于我的包名是 com.knightaoko.filepersistencetest，所以在下文的叙述中，大家看到这个陌生的字符串不要惊讶，实际操作下替换成你自己的包名即可。（这期间还碰到个问题，好像 Android Device Monitor 不能和 Instant Run 同时运行，所以在此需要把 Instant Run 功能关闭，怎么关闭大家自行 Google，很简单的。）于是，下一步当然是打开这个路径了，找到 data，点击，没反应，再点击，还是没反应。又遇到问题了，我无法访问 data 目录，通过 Google 搜索，我知道了 File Explorer 中的每个文件和文件夹都是有访问权限的，如下图红框中标识的就是 data 文件夹的访问权限。</p>
-<p><img src="http://img.blog.csdn.net/20170316150235614?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="无权访问"></p>
-<p> 访问权限是 drwxrwx–x，这玩意是什么意思呢？我相信，学过 Linux 的同学肯定一眼就知道这是什么意思。不知道也没关系，听我慢慢道来，这一个字符串一共有 10 个字符，第一个字符表示是文件夹还是目录，如果第 1 个字符是 d，则表示是文件夹。后面 9 个字符可以分为三组，第一组 rwx 表示所有者（user）对文件的访问权限，r 表示可读（read），w 表示可写（write），x 表示可被执行，- 表示没有该权限；第二组 rwx 表示组群（group）对文件的访问权限；第三组 –x 表示其他人（other）对文件的访问权限，可以看到，没有 r 和 w，说明 data 对其他人来说是不可读不可写的，怪不得我们不能打开它呢，那怎么办呢？于是我又网上搜啊搜，发现可以通过一定的方法修改文件的访问权限的，对，这个方法就是 adb shell。</p>
-<p>adb shell 是 Android SDK 中的一个工具，你可以在你的 Android SDK 目录下的 platform-tools 找到它，下图就是我电脑上的该目录：</p>
-<p><img src="http://img.blog.csdn.net/20170316150326458?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="adb 所在目录"></p>
-<p>我们需要将这个目录添加到环境变量，为的是后面在命令行直接调用 adb 中的命令。比如在此我将 D:\AndroidSDK\platform-tools 添加到环境变量（具体怎么添加应该不用手把手教学了吧）后，运行 cmd 命令行，然后输入下面的命令。</p>
-<p><img src="http://img.blog.csdn.net/20170316150358154?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="通过 adb shell 获取文件访问权限"></p>
-<ul>
-<li>adb shell 是打开 adb 外壳程序。</li>
-<li>su 是获取 root 权限，只有 root 权限才能修改文件的访问权限。</li>
-<li>底下一堆 chmod 777 是把对应的文件或文件夹的访问权限的后 9 位设置成 rwxrwxrwx，777 就三个二进制 111, 喝起来就是 111111111（9 个 1），即相当于把后 9 位访问权限都置 1，于是就成了 rwxrwxrwx，即所有用户都具有该文件的全部访问权限（妈妈再也不用担心我打不开 data 了…）。我们来看看结果：</li>
-</ul>
-<p><img src="http://img.blog.csdn.net/20170316150537048?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=" 修改后的文件访问权限"></p>
-<h2 id="问题3：File-Explorer-中的文件无法-pull（下载）"><a href="#问题3：File-Explorer-中的文件无法-pull（下载）" class="headerlink" title="问题3：File Explorer 中的文件无法 pull（下载）"></a><strong>问题3：File Explorer 中的文件无法 pull（下载）</strong></h2><p>可以看到这些目录都能访问了，可以在包名目录下看到生成的 data 文件了，下一步我们想把这个文件复制到我们的电脑里，怎么操作呢？选中该文件，点击右上角的 pull 图标即可，如下图所示：</p>
-<p><img src="http://img.blog.csdn.net/20170316150620678?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="文件下载按钮"></p>
-<p>点击之后，选好保存路径。结果我们发现文件并没有保存下来，在 Console 窗口还提示了错误：</p>
-<p><img src="http://img.blog.csdn.net/20170316150658987?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="文件下载出错"></p>
-<p>意思就是拉取文件失败，因为你无权进行该操作。又是一脸懵逼，怎么办？还能怎么办，继续 Google 呗！这里我找了很久，终于发现了解决方案：adb root 。没错，在命令行输入这条语句，完美解决！（注意是在 windows 下的命令行，而不是 adb shell 里，当然前提是你添加了 adb 的目录到你的环境变量里）</p>
-<p><img src="http://img.blog.csdn.net/20170316150811460?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="通过 adb root 获取文件下载权限"></p>
-<p>然后我们再来 pull 一下，卧槽，崩溃了，又发现问题了：Failed to pull selection。</p>
-<p><img src="http://img.blog.csdn.net/20170316150850913?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="文件下载再次出错"></p>
-<p>怎么办？OK，继续 Google，在 StackOverflow 里找到了一个高赞的解决方法：</p>
-<p><img src="http://img.blog.csdn.net/20170316150928820?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="重新选择模拟器（from SO）"></p>
-<p>什么意思？重新选择一下 Android Device Monitor 左侧面板的设备即可，没错！就是把下图红框中国的玩意儿点一下。</p>
-<p><img src="http://img.blog.csdn.net/20170316151002632?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="重新选择模拟器"></p>
-<p>好了，我们再找到刚刚那个要拷贝的文件，pull 一下，卧槽！！成功了，真是踏破铁鞋无觅处，得来全得靠姑姑（谷歌）。</p>
-<p><img src="http://img.blog.csdn.net/20170316151045304?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="文件下载成功"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p>总结一下吧，初次使用 Android Device Monitor，本来只是用来辅助学习 SQLite，结果一上午碰到一大堆问题，总算都一一解决了，在此总结一下。</p>
-<ol>
-<li><p><strong>Android Device Monitor 要在模拟器运行之前就打开</strong>，这样才不会出现模拟器设备 offline 的问题。</p>
-</li>
-<li><p>Android Device Monitor 和 Instant Run 貌似有冲突，<strong>在用 Android Device Monitor 时关闭 Instant Run 功能</strong>。我相信还有更好的解决方法，不然打开一个大一点的 APP，不能同时用这两个功能，那多影响效率啊。只是我目前还处于学习阶段，上述方案能解决我当前的问题，不影响我进一步学习，那它就是 OK 的。</p>
-</li>
-<li><p>操作 Android Device Monitor 时，应该默认把你当做其他人（other）对待，所以你对文件的访问权限很受限制。解决方法是在命令行中，<strong>通过在 adb shell 里获取 root 权限，并更改相应文件的访问权限</strong>，当然记得将 adb 所在目录添加进环境变量。</p>
-</li>
-<li><p>能访问了但是不能下载也是很麻烦的事，<strong>通过在命令行运行 adb root 获取文件的下载权限</strong>。</p>
-</li>
-<li><p>通过上述操作之后，就能正常使用 Android Device Monitor 进行文件管理了。但不幸的是，<strong>当你重启模拟器，或启动另一台模拟器时，这些配置又得重新来过</strong>，否则你还是无法访问和下载模拟器中的文件。这个问题的根源在于权限二字，问题不是不能获取权限（通过 adb shell 可以获取 root 权限），而在于获取权限太麻烦了，希望后续版本的 Android Studio 可以直接在 Android Device Monitor 的 GUI 中设置相应获取权限的命令，使得广大 Android 开发者对模拟器中的文件操作更有效率。</p>
-</li>
-<li><p><strong>Google 大法好</strong>。</p>
-</li>
-<li><p>最后还有一点，我目前是跟着《第一行代码》（第二版）学习 Android 开发的，但是作者郭霖老师没有组织读者交流群，所以在学习过程中遇到问题时，要么不知所措，要么大费周折才解决一个问题。如果有志同道合的同学一起交流，那样学习更有效率，遇到问题也能大家一起讨论解决。<strong>不知道大家有没有《第二行代码》学习社群推荐，或者有意向和我一起组建一个这样的学习环境，大家可以在留言区畅所欲言</strong>。</p>
-</li>
-<li><p>PS：本人初出茅庐，开发经验匮乏。如果你发现上文中有不对的地方，还望不吝赐教！</p>
-</li>
-</ol>
+        <p>�ڱ�дQt������ʱ�������ǳ�����Ҫͨ���Ի�������ȡ�û����������ݣ�����ͨ���ļ��Ի�����ȡ�ļ���·����ͨ����ɫ�Ի�����ȡ�û���ѡ������ɫ����Щ�Ի������඼��Qt������д���˵ģ�������Ӧ��������ֱ�ӷ����û������룬������ɫ�Ի���QColorDialog����һ����̬����getColor������ֱ�ӵ��øú��������ᵯ����ɫ�Ի��򣬵�����ѡ������ɫ��ȷ�����ú����ͻ᷵��һ��QColor�Ķ��������������Ͱ���������֮ǰ��ѡ��ɫ��RGBֵ�ˡ�</p>
+<p>Ȼ�����ܶ�ʱ����������Ҫ�����Լ��ĶԻ��������ǲ��ܵ����ֳɺ�������ȡ�û����룬���Ľ��ṩ���ַ�����ͨ���Ի�������ȡ�û������İ������ڴ�֮ǰ������������һ����ʾ�Ի���������������һ����show()��һ����exec()��show() ��ʾ���Ƿ�ģ̬���ڣ����������������̣߳������������ĶԻ����Ǵ�����ջ�ϣ�����������֮�󣬶����������ˣ��������ᷢ�ֶԻ���һ����������������new�ؼ��ֽ��Ի��򴴽��ڶ��ϣ�����������֮���������ܱ����٣����ǽ����ڶ�����Ҫ���Ǽ�ʱ�ͷ��ڴ������⣬���������ڴ�й©�������ܹ�������ʾ���ڲ������ܹ��ܷ����ػ�ȡ���ݣ�show()���������̣߳����˿����û���û���ü��������ݣ����Ѿ�ִ��֮���Ĵ����ˡ���������������Ҫ�õ��źŲۻ��ƣ�����������������������ϸ���⡣exec()��ʾ����ģ̬���ڣ���������һ���¼�ѭ�����������������̣߳���������֮��������ֱ�ӿ��Ի�ȡ�Ի��������ݡ����濼�������ֲ�ͬ�ĶԻ�����ʾ��ʽ���ṩ���ֲ�ͬ�Ļ�ȡ�Ի������ݵķ�����</p>
+<p>###<strong>����һ</strong></p>
+<p>���ȿ��Ǽ򵥵ģ�ʹ��exec()��ʾ�Ի��������Ƕ�����һ�����������࣬��MainWindow,��������һ����Ϊbtn�İ�ť�����������Ի��򣩺�һ����Ϊlabel�ı�ǩ��������ʾ�ӶԻ�����ȡ���û����룩�����ǻ�����һ���Ի����࣬��������һ����ΪlineEdit�ĵ����ı��������ڽ����û�����)���Լ�ȷ����ȡ����ť����������ť�Ǵ����Ի�����ʱ���Զ����ɵģ���������������ͼ��</p>
+<p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/61203614-file_1490012608851_7b1e.png" alt="������"></p>
+<p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/79032149-file_1490012695609_305e.png" alt="�Ի�������"></p>
+<p>�ؼ��������£�</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">//in mainwindow.h</div><div class="line">class MainWindow : public QMainWindow</div><div class="line">&#123;</div><div class="line">    Q_OBJECT</div><div class="line">public:</div><div class="line">    explicit MainWindow(QWidget *parent = 0);</div><div class="line">    ~MainWindow();</div><div class="line">private:</div><div class="line">    Ui::MainWindow *ui;</div><div class="line">    void showDialog();</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//in mainwindow.cpp</div><div class="line">MainWindow::MainWindow(QWidget *parent) :</div><div class="line">    QMainWindow(parent),</div><div class="line">    ui(new Ui::MainWindow)</div><div class="line">&#123;</div><div class="line">    ui-&gt;setupUi(this);</div><div class="line">    //����ʾ�Ի��򡱰�ť����ʾ���������źŲ۹�ϵ</div><div class="line">    connect(ui-&gt;btn, &amp;QPushButton::clicked, this, &amp;MainWindow::showDialog);</div><div class="line">&#125;</div><div class="line">MainWindow::~MainWindow()&#123;delete ui;&#125;</div><div class="line">void MainWindow::showDialog()</div><div class="line">&#123;</div><div class="line">    Dialog dialog;</div><div class="line">    dialog.exec();</div><div class="line">    ui-&gt;label-&gt;setText(dialog.getinput());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">//in dialog.h</div><div class="line">class Dialog : public QDialog</div><div class="line">&#123;</div><div class="line">    Q_OBJECT</div><div class="line">public:</div><div class="line">    explicit Dialog(QWidget *parent = 0);</div><div class="line">    ~Dialog();</div><div class="line">    QString getinput();</div><div class="line">private:</div><div class="line">    Ui::Dialog *ui;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//in dialog.cpp</div><div class="line">Dialog::Dialog(QWidget *parent) :</div><div class="line">    QDialog(parent),</div><div class="line">    ui(new Ui::Dialog)</div><div class="line">&#123;</div><div class="line">    ui-&gt;setupUi(this);</div><div class="line">&#125;</div><div class="line">Dialog::~Dialog()&#123;delete ui;&#125;</div><div class="line">QString Dialog::getinput()</div><div class="line">&#123;</div><div class="line">    QString s = ui-&gt;lineEdit-&gt;text();</div><div class="line">    return s;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>����˵���������ĳ������ǱȽ����������ģ���mainwindow.h��mainwindow.cpp��Ƚ�btn��showDialog������ϵ����showDialog�ڲ�����Dialog���󣬲�ͨ��exec()��ʾ������exec()���谭�̣߳����˴��û���������֮����ִ�к�����ȡ���ݵĴ��룬������������ȡ��dialog�ڵ�������˽�еģ�������Dialog�ඨ����һ��public��getinput()������֮ǰ����������Ԫ���о����Լ������ˣ������ӻ�ȡ�û������룬������������ʾ����������label���棬�ﵽ��������ȡ�Ի������ݵ�Ŀ�ġ�<br>����<a href="http://on2kkr82s.bkt.clouddn.com/DialogData1.rar" target="_blank" rel="external">����һԴ����</a></p>
+<p>###<strong>��������</strong><br>�������۵�����exec()��ʾ�Ի����������»�ȡ�û��������ݣ���������show()��ʾ�Ի��򣬸����λ�ȡ�����أ�����show()���Ὺ���¼�ѭ�����������������������ķ������û������������������ݣ������Ĵ������Ѿ�ִ���ˣ�������Ҫ�õ��źŲۻ��ơ�˼·�������ģ����¶Ի�����ȷ����ť�󣬳������Զ�����QDialog::accept()�����������������ǿ�������accept()�����������з����źţ��������źŵĲ۱�����Ӧ�������ڲ����������������ݽ��ա�<br>�ؼ��������£�</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">//in mainwindow.h</div><div class="line">class MainWindow : public QMainWindow</div><div class="line">&#123;</div><div class="line">    Q_OBJECT</div><div class="line">public:</div><div class="line">    explicit MainWindow(QWidget *parent = 0);</div><div class="line">    ~MainWindow();</div><div class="line">private:</div><div class="line">    Ui::MainWindow *ui;</div><div class="line">    void showDialog();</div><div class="line">    void displayData(QString data);</div><div class="line">    void accept();</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//in mainwindow.cpp</div><div class="line">MainWindow::MainWindow(QWidget *parent) :</div><div class="line">    QMainWindow(parent),</div><div class="line">    ui(new Ui::MainWindow)</div><div class="line">&#123;</div><div class="line">    ui-&gt;setupUi(this);</div><div class="line">    connect(ui-&gt;btn, &amp;QPushButton::clicked, this, &amp;MainWindow::showDialog);</div><div class="line">&#125;</div><div class="line">MainWindow::~MainWindow()&#123;delete ui;&#125;</div><div class="line">void MainWindow::showDialog()</div><div class="line">&#123;</div><div class="line">    Dialog *dialog = new Dialog(this);</div><div class="line">    connect(dialog, &amp;Dialog::receiveData, this, &amp;MainWindow::displayData);</div><div class="line">    dialog-&gt;show();</div><div class="line">&#125;</div><div class="line">void MainWindow::displayData(QString data)</div><div class="line">&#123;</div><div class="line">    ui-&gt;label-&gt;setText(data);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">//in dialog.h</div><div class="line">class Dialog : public QDialog</div><div class="line">&#123;</div><div class="line">    Q_OBJECT</div><div class="line">public:</div><div class="line">    explicit Dialog(QWidget *parent = 0);</div><div class="line">    ~Dialog();</div><div class="line">signals:</div><div class="line">    void receiveData(QString s);</div><div class="line">private:</div><div class="line">    Ui::Dialog *ui;</div><div class="line">    void accept();</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//in dialog.cpp</div><div class="line">Dialog::Dialog(QWidget *parent) :</div><div class="line">    QDialog(parent),</div><div class="line">    ui(new Ui::Dialog)</div><div class="line">&#123;</div><div class="line">    ui-&gt;setupUi(this);</div><div class="line">&#125;</div><div class="line">Dialog::~Dialog()&#123;delete ui;&#125;</div><div class="line">void Dialog::accept() //����accept()</div><div class="line">&#123;</div><div class="line">    QString data = ui-&gt;lineEdit-&gt;text();</div><div class="line">    emit receiveData(data);  //�����źŸ�mainwindow</div><div class="line">    QDialog::accept();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>����˵�����û��������ݺ󣬰���ȷ����ť���������Զ�����accept()������������accept()���������佫��ȡ������������Ϊ�źţ�receiveData��һ���źţ�ͨ��emit���͸������棬��mainwindow.cpp�������ź�receiveData�Ͳ�displayData���й�����displayData�����յ�������ʾ����������label�ϵġ��ܵ���˵���������������ȵ���accept()��accept()���źţ��ź��ϴ������ݣ����͸�displayData��displayData��ʾ���ݡ�ͨ���źŲۻ��ƣ����ǿ�������ʹ�Ի�����Ϊ��ģ̬������ʾ����ʹ�����ݼ��ţ����ǻ�����ͨ���ض��ֶλ�ȡ�û������롣<br>����<a href="http://on2kkr82s.bkt.clouddn.com/DialogData2.rar" target="_blank" rel="external">������Դ����</a></p>
+<p>���н�����</p>
+<p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/57471216-file_1490012700145_1d5f.gif" alt="���н���"></p>
 
     
 
@@ -522,7 +491,7 @@
 <script>
     $('.btn_click_load').click(function() {  //click to load comments
         var disqus_config = function () {
-            this.page.url = 'https://knightaoko.github.io/2017/03/19/Android Device Monitor 文件管理的常见问题/index.html';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.url = 'https://knightaoko.github.io/2016/12/23/Qt主界面获取对话框数据/index.html';  // Replace PAGE_URL with your page's canonical URL variable
             this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
         };
         (function() { // DON'T EDIT BELOW THIS LINE
@@ -552,19 +521,19 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
+        <a href="/2017/03/19/hello-world/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
-    
-        <a href="/2017/03/19/hello-world/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
     
 </nav>
 

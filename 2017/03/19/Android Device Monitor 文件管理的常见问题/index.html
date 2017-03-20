@@ -187,8 +187,7 @@
 
     <!-- Custom Head -->
     
-<link rel="stylesheet" href="/css/prism-coy.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-coy.css" type="text/css"></head>
 
 
     
@@ -259,8 +258,16 @@
                 
     <!-- Paradox Post Header -->
     
-        <!-- Custom Thumbnail -->
-        <div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(http://img.blog.csdn.net/20170316145505719?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva25pZ2h0YW9rbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)">
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script>
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').css('background-image', 'url(' + '/img/random/material-' + randomNum + '.png' + ')');
+</script>
+
+        
     
             <p class="article-headline-p">
                 Android Device Monitor 文件管理的常见问题
@@ -553,14 +560,6 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/03/20/计算机系统漫游/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
@@ -668,7 +667,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a>
+                <a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/01/">一月 2017<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a>
             </ul>
         </li>
         
@@ -686,7 +685,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/Android-Studio/">Android Studio<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Qt/">Qt<span class="sidebar_archives-count">1</span></a>
+                <a class="sidebar_archives-link" href="/categories/Android-Studio/">Android Studio<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Computer-systems/">Computer systems<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/OpenCV/">OpenCV<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Qt/">Qt<span class="sidebar_archives-count">1</span></a>
             </ul>
         </li>
         

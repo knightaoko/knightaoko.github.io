@@ -84,13 +84,17 @@
       <title><![CDATA[Hello World]]></title>
       <url>https://knightaoko.github.io/2017/03/19/hello-world/</url>
       <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span>
+</code></pre>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server
+</code></pre>
 <p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate
+</code></pre>
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy
+</code></pre>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
       
@@ -102,18 +106,127 @@
       <url>https://knightaoko.github.io/2016/12/23/Qt%E4%B8%BB%E7%95%8C%E9%9D%A2%E8%8E%B7%E5%8F%96%E5%AF%B9%E8%AF%9D%E6%A1%86%E6%95%B0%E6%8D%AE/</url>
       <content type="html"><![CDATA[<p>在编写Qt程序的时候，我们常常需要通过对话框来获取用户的输入数据，比如通过文件对话框获取文件的路径，通过颜色对话框获取用户所选择的颜色，这些对话框的类都是Qt帮我们写好了的，调用相应函数就能直接返回用户的输入，比如颜色对话框QColorDialog中有一个静态函数getColor，我们直接调用该函数，便会弹出颜色对话框，等我们选择好颜色并确定，该函数就会返回一个QColor的对象，这个对象就包含了我们之前所选颜色的RGB值了。</p>
 <p>然而，很多时候，我们需要创建自己的对话框，我们不能调用现成函数来获取用户输入，本文将提供两种方法，通过对话框来获取用户输入的案例。在此之前，我们先讨论一下显示对话框的两个函数，一个是show()，一个是exec()。show() 显示的是非模态窗口，不会阻塞程序的线程，因此如果你的对话框是创建在栈上，跳出作用域之后，对象便销毁了，因此你会发现对话框一闪而过；如果你用new关键字将对话框创建在堆上，跳出作用域之后对象不能被销毁，但是建立在堆上需要考虑及时释放内存的问题，以免造成内存泄漏。但是能够正常显示窗口不代表能够很方便地获取数据，show()不会阻塞线程，因此可能用户还没来得及输入数据，就已经执行之后的代码了。解决这个问题需要用到信号槽机制，具体解决方案会在下文详细讲解。exec()显示的是模态窗口，它开启了一个事件循环，会阻塞程序的线程，函数返回之后，我们直接可以获取对话框的数据。下面考虑这两种不同的对话框显示方式，提供两种不同的获取对话框数据的方法。</p>
-<p>###<strong>方法一</strong></p>
-<p>首先考虑简单的，使用exec()显示对话框。我们定义了一个主界面的类，叫MainWindow,界面包含一个名为btn的按钮（用于跳出对话框）和一个名为label的标签（用于显示从对话框获取的用户输入）；我们还定义一个对话框类，界面包含一个名为lineEdit的单行文本框（用于接收用户输入)，以及确定和取消按钮（这两个按钮是创建对话框的时候自动生成的）。两个界面如下图：</p>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a><strong>方法一</strong></h3><p>首先考虑简单的，使用exec()显示对话框。我们定义了一个主界面的类，叫MainWindow,界面包含一个名为btn的按钮（用于跳出对话框）和一个名为label的标签（用于显示从对话框获取的用户输入）；我们还定义一个对话框类，界面包含一个名为lineEdit的单行文本框（用于接收用户输入)，以及确定和取消按钮（这两个按钮是创建对话框的时候自动生成的）。两个界面如下图：</p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/61203614-file_1490012608851_7b1e.png" alt="主界面"></p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/79032149-file_1490012695609_305e.png" alt="对话框界面"></p>
 <p>关键代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">//in mainwindow.h</div><div class="line">class MainWindow : public QMainWindow</div><div class="line">&#123;</div><div class="line">    Q_OBJECT</div><div class="line">public:</div><div class="line">    explicit MainWindow(QWidget *parent = 0);</div><div class="line">    ~MainWindow();</div><div class="line">private:</div><div class="line">    Ui::MainWindow *ui;</div><div class="line">    void showDialog();</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//in mainwindow.cpp</div><div class="line">MainWindow::MainWindow(QWidget *parent) :</div><div class="line">    QMainWindow(parent),</div><div class="line">    ui(new Ui::MainWindow)</div><div class="line">&#123;</div><div class="line">    ui-&gt;setupUi(this);</div><div class="line">    //“显示对话框”按钮与显示函数建立信号槽关系</div><div class="line">    connect(ui-&gt;btn, &amp;QPushButton::clicked, this, &amp;MainWindow::showDialog);</div><div class="line">&#125;</div><div class="line">MainWindow::~MainWindow()&#123;delete ui;&#125;</div><div class="line">void MainWindow::showDialog()</div><div class="line">&#123;</div><div class="line">    Dialog dialog;</div><div class="line">    dialog.exec();</div><div class="line">    ui-&gt;label-&gt;setText(dialog.getinput());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">//in dialog.h</div><div class="line">class Dialog : public QDialog</div><div class="line">&#123;</div><div class="line">    Q_OBJECT</div><div class="line">public:</div><div class="line">    explicit Dialog(QWidget *parent = 0);</div><div class="line">    ~Dialog();</div><div class="line">    QString getinput();</div><div class="line">private:</div><div class="line">    Ui::Dialog *ui;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//in dialog.cpp</div><div class="line">Dialog::Dialog(QWidget *parent) :</div><div class="line">    QDialog(parent),</div><div class="line">    ui(new Ui::Dialog)</div><div class="line">&#123;</div><div class="line">    ui-&gt;setupUi(this);</div><div class="line">&#125;</div><div class="line">Dialog::~Dialog()&#123;delete ui;&#125;</div><div class="line">QString Dialog::getinput()</div><div class="line">&#123;</div><div class="line">    QString s = ui-&gt;lineEdit-&gt;text();</div><div class="line">    return s;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>代码说明：上面的程序还是比较容易理解的，在mainwindow.h和mainwindow.cpp里，先将btn与showDialog建立联系，在showDialog内部创建Dialog对象，并通过exec()显示，由于exec()会阻碍线程，因此待用户输入数据之后再执行后续获取数据的代码，由于我们想获取的dialog内的数据是私有的，因此在Dialog类定义了一个public的getinput()函数（之前还考虑用友元，感觉被自己蠢哭了），间接获取用户的输入，最后将数据显示在主界面的label上面，达到主界面获取对话框数据的目的。<br>附：<a href="http://on2kkr82s.bkt.clouddn.com/DialogData1.rar" target="_blank" rel="external">方法一源代码</a></p>
-<p>###<strong>方法二：</strong><br>上面讨论的是用exec()显示对话框的情况下获取用户输入数据，那如果用show()显示对话框，该如何获取数据呢？由于show()不会开启事件循环，因此如果继续按上面的方法，用户根本来不及输入数据，后续的代码就已经执行了，因此需要用到信号槽机制。思路是这样的：按下对话框的确定按钮后，程序会自动调用QDialog::accept()函数，因此如果我们可以重载accept()函数，在其中发送信号，关联该信号的槽便会响应，我们在槽里面进行数据数据接收。<br>关键代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">//in mainwindow.h</div><div class="line">class MainWindow : public QMainWindow</div><div class="line">&#123;</div><div class="line">    Q_OBJECT</div><div class="line">public:</div><div class="line">    explicit MainWindow(QWidget *parent = 0);</div><div class="line">    ~MainWindow();</div><div class="line">private:</div><div class="line">    Ui::MainWindow *ui;</div><div class="line">    void showDialog();</div><div class="line">    void displayData(QString data);</div><div class="line">    void accept();</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//in mainwindow.cpp</div><div class="line">MainWindow::MainWindow(QWidget *parent) :</div><div class="line">    QMainWindow(parent),</div><div class="line">    ui(new Ui::MainWindow)</div><div class="line">&#123;</div><div class="line">    ui-&gt;setupUi(this);</div><div class="line">    connect(ui-&gt;btn, &amp;QPushButton::clicked, this, &amp;MainWindow::showDialog);</div><div class="line">&#125;</div><div class="line">MainWindow::~MainWindow()&#123;delete ui;&#125;</div><div class="line">void MainWindow::showDialog()</div><div class="line">&#123;</div><div class="line">    Dialog *dialog = new Dialog(this);</div><div class="line">    connect(dialog, &amp;Dialog::receiveData, this, &amp;MainWindow::displayData);</div><div class="line">    dialog-&gt;show();</div><div class="line">&#125;</div><div class="line">void MainWindow::displayData(QString data)</div><div class="line">&#123;</div><div class="line">    ui-&gt;label-&gt;setText(data);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">//in dialog.h</div><div class="line">class Dialog : public QDialog</div><div class="line">&#123;</div><div class="line">    Q_OBJECT</div><div class="line">public:</div><div class="line">    explicit Dialog(QWidget *parent = 0);</div><div class="line">    ~Dialog();</div><div class="line">signals:</div><div class="line">    void receiveData(QString s);</div><div class="line">private:</div><div class="line">    Ui::Dialog *ui;</div><div class="line">    void accept();</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//in dialog.cpp</div><div class="line">Dialog::Dialog(QWidget *parent) :</div><div class="line">    QDialog(parent),</div><div class="line">    ui(new Ui::Dialog)</div><div class="line">&#123;</div><div class="line">    ui-&gt;setupUi(this);</div><div class="line">&#125;</div><div class="line">Dialog::~Dialog()&#123;delete ui;&#125;</div><div class="line">void Dialog::accept() //重载accept()</div><div class="line">&#123;</div><div class="line">    QString data = ui-&gt;lineEdit-&gt;text();</div><div class="line">    emit receiveData(data);  //发送信号给mainwindow</div><div class="line">    QDialog::accept();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>代码说明：用户输入数据后，按下确定按钮，程序会自动调用accept()，因此重载了accept()函数，让其将获取的输入数据作为信号（receiveData是一个信号）通过emit发送给主界面，在mainwindow.cpp，我们信号receiveData和槽displayData进行关联，displayData将接收的数据显示在主界面的label上的。总的来说，数据输入后，先调用accept()，accept()将信号（信号上带有数据）发送给displayData，displayData显示数据。通过信号槽机制，我们看到，即使对话框作为非模态窗口显示，即使其稍纵即逝，我们还是能通过特定手段获取用户的输入。<br>附：<a href="http://on2kkr82s.bkt.clouddn.com/DialogData2.rar" target="_blank" rel="external">方法二源代码</a></p>
+<pre><code>//in mainwindow.h
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+public:
+    explicit MainWindow(QWidget *parent = 0);
+    ~MainWindow();
+private:
+    Ui::MainWindow *ui;
+    void showDialog();
+};
+
+//in mainwindow.cpp
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui-&gt;setupUi(this);
+    //“显示对话框”按钮与显示函数建立信号槽关系
+    connect(ui-&gt;btn, &amp;QPushButton::clicked, this, &amp;MainWindow::showDialog);
+}
+MainWindow::~MainWindow(){delete ui;}
+void MainWindow::showDialog()
+{
+    Dialog dialog;
+    dialog.exec();
+    ui-&gt;label-&gt;setText(dialog.getinput());
+}
+</code></pre><pre><code>//in dialog.h
+class Dialog : public QDialog
+{
+    Q_OBJECT
+public:
+    explicit Dialog(QWidget *parent = 0);
+    ~Dialog();
+    QString getinput();
+private:
+    Ui::Dialog *ui;
+};
+
+//in dialog.cpp
+Dialog::Dialog(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::Dialog)
+{
+    ui-&gt;setupUi(this);
+}
+Dialog::~Dialog(){delete ui;}
+QString Dialog::getinput()
+{
+    QString s = ui-&gt;lineEdit-&gt;text();
+    return s;
+}
+</code></pre><p>代码说明：上面的程序还是比较容易理解的，在mainwindow.h和mainwindow.cpp里，先将btn与showDialog建立联系，在showDialog内部创建Dialog对象，并通过exec()显示，由于exec()会阻碍线程，因此待用户输入数据之后再执行后续获取数据的代码，由于我们想获取的dialog内的数据是私有的，因此在Dialog类定义了一个public的getinput()函数（之前还考虑用友元，感觉被自己蠢哭了），间接获取用户的输入，最后将数据显示在主界面的label上面，达到主界面获取对话框数据的目的。<br>附：<a href="http://on2kkr82s.bkt.clouddn.com/DialogData1.rar" target="_blank" rel="external">方法一源代码</a></p>
+<h3 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a><strong>方法二：</strong></h3><p>上面讨论的是用exec()显示对话框的情况下获取用户输入数据，那如果用show()显示对话框，该如何获取数据呢？由于show()不会开启事件循环，因此如果继续按上面的方法，用户根本来不及输入数据，后续的代码就已经执行了，因此需要用到信号槽机制。思路是这样的：按下对话框的确定按钮后，程序会自动调用QDialog::accept()函数，因此如果我们可以重载accept()函数，在其中发送信号，关联该信号的槽便会响应，我们在槽里面进行数据数据接收。<br>关键代码如下：</p>
+<pre><code>//in mainwindow.h
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+public:
+    explicit MainWindow(QWidget *parent = 0);
+    ~MainWindow();
+private:
+    Ui::MainWindow *ui;
+    void showDialog();
+    void displayData(QString data);
+    void accept();
+};
+
+//in mainwindow.cpp
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui-&gt;setupUi(this);
+    connect(ui-&gt;btn, &amp;QPushButton::clicked, this, &amp;MainWindow::showDialog);
+}
+MainWindow::~MainWindow(){delete ui;}
+void MainWindow::showDialog()
+{
+    Dialog *dialog = new Dialog(this);
+    connect(dialog, &amp;Dialog::receiveData, this, &amp;MainWindow::displayData);
+    dialog-&gt;show();
+}
+void MainWindow::displayData(QString data)
+{
+    ui-&gt;label-&gt;setText(data);
+}
+</code></pre><pre><code>//in dialog.h
+class Dialog : public QDialog
+{
+    Q_OBJECT
+public:
+    explicit Dialog(QWidget *parent = 0);
+    ~Dialog();
+signals:
+    void receiveData(QString s);
+private:
+    Ui::Dialog *ui;
+    void accept();
+};
+
+//in dialog.cpp
+Dialog::Dialog(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::Dialog)
+{
+    ui-&gt;setupUi(this);
+}
+Dialog::~Dialog(){delete ui;}
+void Dialog::accept() //重载accept()
+{
+    QString data = ui-&gt;lineEdit-&gt;text();
+    emit receiveData(data);  //发送信号给mainwindow
+    QDialog::accept();
+}
+</code></pre><p>代码说明：用户输入数据后，按下确定按钮，程序会自动调用accept()，因此重载了accept()函数，让其将获取的输入数据作为信号（receiveData是一个信号）通过emit发送给主界面，在mainwindow.cpp，我们信号receiveData和槽displayData进行关联，displayData将接收的数据显示在主界面的label上的。总的来说，数据输入后，先调用accept()，accept()将信号（信号上带有数据）发送给displayData，displayData显示数据。通过信号槽机制，我们看到，即使对话框作为非模态窗口显示，即使其稍纵即逝，我们还是能通过特定手段获取用户的输入。<br>附：<a href="http://on2kkr82s.bkt.clouddn.com/DialogData2.rar" target="_blank" rel="external">方法二源代码</a></p>
 <p>运行结果：</p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/57471216-file_1490012700145_1d5f.gif" alt="运行结果"></p>
 ]]></content>

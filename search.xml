@@ -106,7 +106,7 @@
       <title><![CDATA[计算机系统漫游]]></title>
       <url>https://knightaoko.github.io/2017/01/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8/</url>
       <content type="html"><![CDATA[<p>计算机系统是由硬件和软件系统组成的，它们共同工作来运行应用程序。作为程序员，也需要了解这些组件是如何工作的，以及这些组件是如何影响程序的正确性和性能的。我们从最简单的 hello 程序开始，通过跟踪 hello 程序的生命周期（从被创建，到运行，输出，然终止），来开始对计算机系统的学习。</p>
-<h1 id="1-hello-程序创建"><a href="#1-hello-程序创建" class="headerlink" title="1. hello 程序创建"></a><strong>1. hello 程序创建</strong></h1><p>hello.c</p>
+<h2 id="1-hello-程序创建"><a href="#1-hello-程序创建" class="headerlink" title="1. hello 程序创建"></a><strong>1. hello 程序创建</strong></h2><p>hello.c</p>
 <pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
 
 <span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -117,21 +117,21 @@
 <p>hello 程序的生命周期是从源程序 hello.c 开始的，它实际上是由 0 和 1 组成的位（bit）序列，8 位称为一个字节。根据 ASCII 标准，每个字节表示一个特定的文本字符，如下图所示，hello.c 程序中的每个字符都对应一个单字节。</p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/66099901-file_1490015480906_21f.png" alt=""></p>
 <p>hello.c 的表示方法说明了一个基本思想：计算机系统中的所有信息，包括磁盘中的文件、存储器中的程序和数据、网络上传的数据，都是一串由 0 和 1 组成的位（bit）序列，区分不同数据对象的唯一方法是我们读到这些数据对象时的上下文。</p>
-<h1 id="2-hello-程序编译"><a href="#2-hello-程序编译" class="headerlink" title="2. hello 程序编译"></a><strong>2. hello 程序编译</strong></h1><h2 id="2-1-编译系统"><a href="#2-1-编译系统" class="headerlink" title="2.1 编译系统"></a>2.1 编译系统</h2><p>前面创建的 hello.c 程序是一个高级 C 语言程序，我们能够读懂，但计算机系统不懂。必须把高级语言转化为计算机系统能够执行的低级机器语言指令，得到的是可执行目标文件 hello。从源程序文件 hello.c 到可执行目标文件 hello，编译过程分为四个阶段：预处理阶段、编译阶段、汇编阶段和链接阶段，这四个阶段分别由预处理器、编译器、汇编器和链接器完成，它们一起构成了编译系统。</p>
+<h2 id="2-hello-程序编译"><a href="#2-hello-程序编译" class="headerlink" title="2. hello 程序编译"></a><strong>2. hello 程序编译</strong></h2><h3 id="2-1-编译系统"><a href="#2-1-编译系统" class="headerlink" title="2.1 编译系统"></a>2.1 编译系统</h3><p>前面创建的 hello.c 程序是一个高级 C 语言程序，我们能够读懂，但计算机系统不懂。必须把高级语言转化为计算机系统能够执行的低级机器语言指令，得到的是可执行目标文件 hello。从源程序文件 hello.c 到可执行目标文件 hello，编译过程分为四个阶段：预处理阶段、编译阶段、汇编阶段和链接阶段，这四个阶段分别由预处理器、编译器、汇编器和链接器完成，它们一起构成了编译系统。</p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/43933800-file_1490015481069_ff32.png" alt=""></p>
 <ul>
-<li><strong>预处理阶段</strong>。预处理器根据以 # 字符开头的命令，向源程序添加相应的头文件。如 hello.c 第一行的 #include，预处理器读取系统头文件 stdio.h，并将其直接插入到程序文本，得到 hello.i 文件。</li>
+<li><strong>预处理阶段</strong>。预处理器根据以 ## 字符开头的命令，向源程序添加相应的头文件。如 hello.c 第一行的 #include，预处理器读取系统头文件 stdio.h，并将其直接插入到程序文本，得到 hello.i 文件。</li>
 <li><strong>编译阶段</strong>。编译器将 hello.i 翻译成汇编程序文件 hello.s。</li>
 <li><strong>汇编阶段</strong>。汇编器将汇编程序文件 hello.s 翻译成机器语言指令，并将指令打包成可重定位目标程序，保存在 hello.o 中。hello.o 是二进制文件，而不是文本文件，因此用文本编辑器打开，发现是一堆乱码。</li>
 <li><strong>链接阶段</strong>。hello 程序调用了 printf 函数，这个函数存在于已经编译好的 printf.o 中，链接器负责将 .o 文件合并，得到一个可执行目标文件 hello，可以被加载到内存中，由系统执行。</li>
 </ul>
-<h2 id="2-2-程序员为什么要了解编译系统？"><a href="#2-2-程序员为什么要了解编译系统？" class="headerlink" title="2.2 程序员为什么要了解编译系统？"></a>2.2 程序员为什么要了解编译系统？</h2><ol>
+<h3 id="2-2-程序员为什么要了解编译系统？"><a href="#2-2-程序员为什么要了解编译系统？" class="headerlink" title="2.2 程序员为什么要了解编译系统？"></a>2.2 程序员为什么要了解编译系统？</h3><ol>
 <li><strong>优化程序性能</strong>。为了在 C 程序中做出好的编码选择，我们确实需要了解一些机器代码以及编译器将不同 C 语句转化为机器代码的方式。例如，一个 switch 语句是否总比一系列 if-then-else 语句高效得多？一个函数调用的开销有多大？while 循环比 for 循环更有效吗？指针引用比数组索引更有效吗？</li>
 <li><strong>理解链接时出现的错误</strong>。一些令人困扰的程序错误往往都与链接器操作有关。</li>
 <li><strong>避免安全漏洞</strong>。缓冲区溢出是造成大多数网络和 Internet 服务器上安全漏洞的主要原因。通过更好地理解编译系统，可以降低这些错误的出现。</li>
 </ol>
-<h1 id="3-hello-程序执行"><a href="#3-hello-程序执行" class="headerlink" title="3 hello 程序执行"></a><strong>3 hello 程序执行</strong></h1><p>此时，hello.c 源程序已经被编译系统翻译成可执行目标文件 hello，存放在磁盘上。在 Linux 系统的外壳（shell）中可以执行 hello。为了理解 hello 执行的时候发生了什么，我们先对一个典型系统的硬件组成进行简单介绍。</p>
-<h2 id="3-1-计算机系统硬件组成"><a href="#3-1-计算机系统硬件组成" class="headerlink" title="3.1 计算机系统硬件组成"></a>3.1 计算机系统硬件组成</h2><p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/83046123-file_1490015481442_490e.png" alt=""></p>
+<h2 id="3-hello-程序执行"><a href="#3-hello-程序执行" class="headerlink" title="3 hello 程序执行"></a><strong>3 hello 程序执行</strong></h2><p>此时，hello.c 源程序已经被编译系统翻译成可执行目标文件 hello，存放在磁盘上。在 Linux 系统的外壳（shell）中可以执行 hello。为了理解 hello 执行的时候发生了什么，我们先对一个典型系统的硬件组成进行简单介绍。</p>
+<h3 id="3-1-计算机系统硬件组成"><a href="#3-1-计算机系统硬件组成" class="headerlink" title="3.1 计算机系统硬件组成"></a>3.1 计算机系统硬件组成</h3><p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/83046123-file_1490015481442_490e.png" alt=""></p>
 <p>如图所示，典型系统的硬件组成包括总线、I/O设备、主寸和处理器。</p>
 <ul>
 <li><strong>总线</strong>。总线贯穿整个系统，它携带信息字节并负责在各个部件间传递，每次只传一个字，字的长度成为字长，有的机器字长是 4 个字节（32位），有的是 8 个字节（64位）。</li>
@@ -157,26 +157,26 @@
 </tr>
 </tbody>
 </table>
-<h2 id="3-2-运行-hello-程序"><a href="#3-2-运行-hello-程序" class="headerlink" title="3.2 运行 hello 程序"></a>3.2 运行 hello 程序</h2><p> 首先我们在外壳（shell）输入字符串“./hello”以执行 hello 程序，外壳程序将字符逐一从输入设备读入 CPU 的寄存器，再把它放到主存中。</p>
+<h3 id="3-2-运行-hello-程序"><a href="#3-2-运行-hello-程序" class="headerlink" title="3.2 运行 hello 程序"></a>3.2 运行 hello 程序</h3><p> 首先我们在外壳（shell）输入字符串“./hello”以执行 hello 程序，外壳程序将字符逐一从输入设备读入 CPU 的寄存器，再把它放到主存中。</p>
 <p>键入回车，外壳会执行一系列代码加载 hello，将 hello 的代码和数据从磁盘复制到主存，利用 DMA（直接存储器存取技术），数据可以不通过处理器而直接从磁盘达到主存。</p>
 <p>hello 加载完之后，处理器开始执行 hello 程序中的 main 程序，将“hello. world\n”字符串从主存复制到寄存器文件，再从寄存器文件复制到显示设备，最终显示在屏幕上。</p>
-<h2 id="3-3-高速缓存和存储器层次结构"><a href="#3-3-高速缓存和存储器层次结构" class="headerlink" title="3.3 高速缓存和存储器层次结构"></a>3.3 高速缓存和存储器层次结构</h2><p>看完上面 hello 的执行过程，可以发现，系统花费了大量时间把信息从一个地方传到另一个地方，系统设计者的一个主要目标是使这些复制操作尽可能快地完成。针对处理器与主存之间速度的差异，系统设计者用更小、更快的存储设备，即高速缓存存储器，作为暂时的集结区域，用于存放处理器近期可能会需要的信息。</p>
+<h3 id="3-3-高速缓存和存储器层次结构"><a href="#3-3-高速缓存和存储器层次结构" class="headerlink" title="3.3 高速缓存和存储器层次结构"></a>3.3 高速缓存和存储器层次结构</h3><p>看完上面 hello 的执行过程，可以发现，系统花费了大量时间把信息从一个地方传到另一个地方，系统设计者的一个主要目标是使这些复制操作尽可能快地完成。针对处理器与主存之间速度的差异，系统设计者用更小、更快的存储设备，即高速缓存存储器，作为暂时的集结区域，用于存放处理器近期可能会需要的信息。</p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/58858427-file_1490015481552_c1e1.png" alt=""></p>
 <p>上图展示了一个典型系统的中高速缓存，处理器芯片上的 L1 高速缓存大小可达数万字节，访问速度几乎和访问寄存器文件一样快。还有 L2 ,甚至 L3 高速缓存，随着容量增大，访问速度变慢。高速缓存是用 SRAM （静态随机访问存储器）的硬件技术实现的。有了高速缓存，程序的执行性能可以提高一个数量级。</p>
 <p>实际上，除了在处理器和主存之间插入多级高速缓存，每个计算机系统中还有更复杂的存储器层次结构，如下图所示，这个层次结构从上到下，访问速度越来越慢，容量越来越大，并且每个字节的造价也越来越便宜。L0 为寄存器文件，L1 到 L3 为三级高速缓存，然后是主存、本地磁盘，最后是远程二级存储。存储器层次结构的主要思想是：一层上的存储器是低一层存储器的高速缓存，如寄存器文件是 L1 的高速缓存，L1 是 L2 的高速缓存等。</p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/8906578-file_1490015481302_7753.png" alt=""></p>
-<h1 id="4-操作系统管理硬件"><a href="#4-操作系统管理硬件" class="headerlink" title="4. 操作系统管理硬件"></a><strong>4. 操作系统管理硬件</strong></h1><p>当我们加载和运行 hello 程序，以及 hello 程序输出时，外壳和 hello 程序都没有直接访问键盘、显示器、磁盘和主存。它们依靠操作系统来管理硬件。操作系统有两个基本功能：（1）防止硬件被失控的应用程序滥用；（2）向应用程序提供了简单一致的机制来控制复制而又大相径庭的硬件设备。操作系统是通过几个基本的抽象概念来实现这两个功能的。</p>
+<h2 id="4-操作系统管理硬件"><a href="#4-操作系统管理硬件" class="headerlink" title="4. 操作系统管理硬件"></a><strong>4. 操作系统管理硬件</strong></h2><p>当我们加载和运行 hello 程序，以及 hello 程序输出时，外壳和 hello 程序都没有直接访问键盘、显示器、磁盘和主存。它们依靠操作系统来管理硬件。操作系统有两个基本功能：（1）防止硬件被失控的应用程序滥用；（2）向应用程序提供了简单一致的机制来控制复制而又大相径庭的硬件设备。操作系统是通过几个基本的抽象概念来实现这两个功能的。</p>
 <ul>
 <li><strong>文件</strong>。是操作系统对 I/O 设备的抽象表示。</li>
 <li><strong>虚拟存储器</strong>。是操作系统对主存和磁盘 I/O 设备的抽象表示。</li>
 <li><strong>进程</strong>。是对处理器、主存和 I/O 设备的抽象表示。</li>
 </ul>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/48144014-file_1490015481189_6c56.png" alt=""></p>
-<h2 id="4-1-进程"><a href="#4-1-进程" class="headerlink" title="4.1 进程"></a>4.1 进程</h2><p>hello 程序运行时，操作系统会提供一个假象，就好像系统上只有这个程序在运行。这是通过进程的概念来实现的，进程是计算机科学中最重要和最成功的概念之一。进程是操作系统对正在运行程序的一种抽象，一个系统可以同时运行多个进程，这种并发运行时通过处理器在进程间的切换（称为上下文切换）实现的。实际上，在任何时刻，单处理器系统都只能执行一个进程的代码。</p>
+<h3 id="4-1-进程"><a href="#4-1-进程" class="headerlink" title="4.1 进程"></a>4.1 进程</h3><p>hello 程序运行时，操作系统会提供一个假象，就好像系统上只有这个程序在运行。这是通过进程的概念来实现的，进程是计算机科学中最重要和最成功的概念之一。进程是操作系统对正在运行程序的一种抽象，一个系统可以同时运行多个进程，这种并发运行时通过处理器在进程间的切换（称为上下文切换）实现的。实际上，在任何时刻，单处理器系统都只能执行一个进程的代码。</p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/3651090-file_1490015481670_80e8.png" alt=""></p>
 <p> 如上图所示，有两个进程：外壳进程和 hello 进程。一开始只有外壳进程在运行，输入“./hello”命令后，系统调用将控制权传递给操作系统，操作系统保存当前外壳进程的上下文，并创建新的 hello 进程及其上下文，将控制权传递给新的 hello 进程。hello 进程终止后，操作系统恢复外壳进程上下文，并将控制权传回给它，外壳进程等待下一个命令输入。</p>
-<h2 id="4-2-线程"><a href="#4-2-线程" class="headerlink" title="4.2 线程"></a>4.2 线程</h2><p>通常我们认为一个进程只有单一控制流，如 hello 进程只有 main 控制流。但是在现代系统中，一个进程可以由多个称为线程的执行单元组成，每个线程都运行在进程的上下文中，并共享同样的代码和全局数据。一般来说，线程比进程更高效，所以多线程之间比多进程之间更容易共享数据。</p>
-<h2 id="4-3-虚拟存储器"><a href="#4-3-虚拟存储器" class="headerlink" title="4.3 虚拟存储器"></a>4.3 虚拟存储器</h2><p>虚拟存储器是一个抽象的概念，它为每个进程提供了一个假象：每个进程都在独占使用主存。每个进程看到的是一致的存储器，称为虚拟地址空间。</p>
+<h3 id="4-2-线程"><a href="#4-2-线程" class="headerlink" title="4.2 线程"></a>4.2 线程</h3><p>通常我们认为一个进程只有单一控制流，如 hello 进程只有 main 控制流。但是在现代系统中，一个进程可以由多个称为线程的执行单元组成，每个线程都运行在进程的上下文中，并共享同样的代码和全局数据。一般来说，线程比进程更高效，所以多线程之间比多进程之间更容易共享数据。</p>
+<h3 id="4-3-虚拟存储器"><a href="#4-3-虚拟存储器" class="headerlink" title="4.3 虚拟存储器"></a>4.3 虚拟存储器</h3><p>虚拟存储器是一个抽象的概念，它为每个进程提供了一个假象：每个进程都在独占使用主存。每个进程看到的是一致的存储器，称为虚拟地址空间。</p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/17034796-file_1490015481788_17b.png" alt=""></p>
 <p> 每个进程的虚拟地址空间由大量准确定义的区构成，每个区都有专门的功能。</p>
 <ul>
@@ -187,16 +187,16 @@
 <li><strong>内核虚拟存储器</strong>。是操作系统的一部分，不允许应用程序读写或调用。</li>
 </ul>
 <p>虚拟存储器的运作需要硬件和操作系统之间精密复杂的交互，其基本思想是把一个进程虚拟存储器的内容存储在磁盘上，然后用主存作为磁盘的高速缓存。</p>
-<h2 id="4-4-文件"><a href="#4-4-文件" class="headerlink" title="4.4 文件"></a>4.4 文件</h2><p>文件就是字节序列，仅此而已。每个 I/O 设备，包括磁盘、键盘、显示器，甚至网络，都可以视为文件。它向应用程序提供了一个统一的视角，来看待系统中可能含有的所有各式各样的 I/O 设备。</p>
-<h1 id="5-其他重要主题"><a href="#5-其他重要主题" class="headerlink" title="5. 其他重要主题"></a><strong>5. 其他重要主题</strong></h1><p>在上述计算机系统漫游中，我们得出重要结论：计算机系统不仅仅只是硬件。系统是硬件和软件互相交织的集合体，它们必须共同协作以达到运行应用程序的最终目的。我们来再来讨论几个贯穿计算机系统的重要概念作为结尾。</p>
-<h2 id="5-1-并发和并行"><a href="#5-1-并发和并行" class="headerlink" title="5.1 并发和并行"></a>5.1 并发和并行</h2><p>我们需要计算机做得更多，也需要它运行得更快，怎么办呢？因此引入了并发，并发是一个通用的概念，指一个同时具有多个活动的系统；并行是指用并发使一个系统运行得更快。并行有三个层次，由高到低分别是：线程级并发；指令级并行；单指令多数据并行。</p>
+<h3 id="4-4-文件"><a href="#4-4-文件" class="headerlink" title="4.4 文件"></a>4.4 文件</h3><p>文件就是字节序列，仅此而已。每个 I/O 设备，包括磁盘、键盘、显示器，甚至网络，都可以视为文件。它向应用程序提供了一个统一的视角，来看待系统中可能含有的所有各式各样的 I/O 设备。</p>
+<h2 id="5-其他重要主题"><a href="#5-其他重要主题" class="headerlink" title="5. 其他重要主题"></a><strong>5. 其他重要主题</strong></h2><p>在上述计算机系统漫游中，我们得出重要结论：计算机系统不仅仅只是硬件。系统是硬件和软件互相交织的集合体，它们必须共同协作以达到运行应用程序的最终目的。我们来再来讨论几个贯穿计算机系统的重要概念作为结尾。</p>
+<h3 id="5-1-并发和并行"><a href="#5-1-并发和并行" class="headerlink" title="5.1 并发和并行"></a>5.1 并发和并行</h3><p>我们需要计算机做得更多，也需要它运行得更快，怎么办呢？因此引入了并发，并发是一个通用的概念，指一个同时具有多个活动的系统；并行是指用并发使一个系统运行得更快。并行有三个层次，由高到低分别是：线程级并发；指令级并行；单指令多数据并行。</p>
 <ul>
 <li><strong>线程级并发</strong>。在一个进程中执行多个控制流，即多线程。传统上通过线程间的切换实现并行，随着多核处理器和超线程的出现，线程之间的切换变得更加的快速。</li>
 <li><strong>指令级并行</strong>。即处理器可以同时执行多条指令，</li>
 <li><strong>单指令、多数据并行</strong>。允许一条指令产生多个可以并行执行的操作，即 SIMD 并行，如较新的 Intel 和 AMD 处理器并行地对 4 对单精度浮点数做加法的指令。</li>
 </ul>
-<h2 id="5-2-计算机系统中的抽象"><a href="#5-2-计算机系统中的抽象" class="headerlink" title="5.2 计算机系统中的抽象"></a>5.2 计算机系统中的抽象</h2><p>抽象是计算机科学中最为重要的概念之一。例如，在编程中可以为函数提供抽象的接口，程序员无需了解函数内部工作机制就可以使用这些代码。如文件是对 I/O 设备的抽象；虚拟存储器是对主存和磁盘 I/O 的抽象；进程是对一个正在运行的程序的抽象；而虚拟机是对整个计算机（包括操作系统、处理器和程序）的抽象。</p>
-<h1 id="6-总结"><a href="#6-总结" class="headerlink" title="6 总结"></a><strong>6 总结</strong></h1><p>由一个 hello 程序的生命周期对整个计算机系统进行了快速的漫游。从中我们知道了，计算机系统是由硬件和软件组成的，共同协作以运行程序。计算机内部的信息实际上是一系列位序列，根据上下文有不同的解释方式。编译系统将源程序经过预处理、编译、汇编和链接四个步骤翻译成可执行目标文件。由于程序运行时，信息常常由一个地方被复制到另一个地方，为了提高传递速度，提出了存储器层次结构，由高到低分别是寄存器文件，L1 高速缓存，L2 高速缓存，L3 高速缓存，主存，磁盘，远程存储器等，由上到下，容量依次变大，但速度越来越慢，每个字节的造价也越来越便宜。</p>
+<h3 id="5-2-计算机系统中的抽象"><a href="#5-2-计算机系统中的抽象" class="headerlink" title="5.2 计算机系统中的抽象"></a>5.2 计算机系统中的抽象</h3><p>抽象是计算机科学中最为重要的概念之一。例如，在编程中可以为函数提供抽象的接口，程序员无需了解函数内部工作机制就可以使用这些代码。如文件是对 I/O 设备的抽象；虚拟存储器是对主存和磁盘 I/O 的抽象；进程是对一个正在运行的程序的抽象；而虚拟机是对整个计算机（包括操作系统、处理器和程序）的抽象。</p>
+<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6 总结"></a><strong>6 总结</strong></h2><p>由一个 hello 程序的生命周期对整个计算机系统进行了快速的漫游。从中我们知道了，计算机系统是由硬件和软件组成的，共同协作以运行程序。计算机内部的信息实际上是一系列位序列，根据上下文有不同的解释方式。编译系统将源程序经过预处理、编译、汇编和链接四个步骤翻译成可执行目标文件。由于程序运行时，信息常常由一个地方被复制到另一个地方，为了提高传递速度，提出了存储器层次结构，由高到低分别是寄存器文件，L1 高速缓存，L2 高速缓存，L3 高速缓存，主存，磁盘，远程存储器等，由上到下，容量依次变大，但速度越来越慢，每个字节的造价也越来越便宜。</p>
 <p>另外，应用程序并不是直接操纵计算机硬件，而是通过操作系统代为管理，这样可以避免失控的应用程序对系统硬件的滥用，同时为应用程序提供了简单统一的机制来控制复杂多样的硬件。具体是通过进程、虚拟存储器和文件等抽象概念实现的。最后还讨论了三个不同层次的并发机制，并说明了计算机系统中抽象的重要性。</p>
 <hr>
 <p>参考：<a href="http://csapp.cs.cmu.edu/" target="_blank" rel="external">《Computer Systems A Programmer’s Perspective》</a></p>
@@ -223,12 +223,12 @@
       <title><![CDATA[OpenCV 图像遍历与颜色缩减]]></title>
       <url>https://knightaoko.github.io/2017/01/21/OpenCV%20%E5%9B%BE%E5%83%8F%E9%81%8D%E5%8E%86%E4%B8%8E%E9%A2%9C%E8%89%B2%E7%BC%A9%E5%87%8F/</url>
       <content type="html"><![CDATA[<p>图像处理的基础是对图像每一个像素点的遍历，即图像扫描。在本节中，将介绍几种不同的图像遍历方式，为了对比不同方法的效率，我们不是单纯的遍历，而是对图像做更多的处理。在此，我们测试的是一种简单的颜色缩减方法。为了比较不同遍历算法的运行时间，你还将看到 OpenCV 中计时函数的用法。</p>
-<h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a><strong>1. 概述</strong></h1><p>图像处理的基础是对图像每一个像素点的遍历，即图像扫描。在本节中，将介绍几种不同的图像遍历方式，为了对比不同方法的效率，我们不是单纯的遍历，而是对图像做更多的处理。在此，我们测试的是一种简单的颜色缩减方法。为了比较不同遍历算法的运行时间，你还将看到 OpenCV 中计时函数的用法。</p>
-<h1 id="2-图像存储方式"><a href="#2-图像存储方式" class="headerlink" title="2. 图像存储方式"></a><strong>2. 图像存储方式</strong></h1><p>在进行下面的论述之前，先对图像矩阵在内存中的存储方式简单介绍。对于单通道灰度图像：</p>
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a><strong>1. 概述</strong></h2><p>图像处理的基础是对图像每一个像素点的遍历，即图像扫描。在本节中，将介绍几种不同的图像遍历方式，为了对比不同方法的效率，我们不是单纯的遍历，而是对图像做更多的处理。在此，我们测试的是一种简单的颜色缩减方法。为了比较不同遍历算法的运行时间，你还将看到 OpenCV 中计时函数的用法。</p>
+<h2 id="2-图像存储方式"><a href="#2-图像存储方式" class="headerlink" title="2. 图像存储方式"></a><strong>2. 图像存储方式</strong></h2><p>在进行下面的论述之前，先对图像矩阵在内存中的存储方式简单介绍。对于单通道灰度图像：</p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/94760296-file_1490017405620_17ae0.png" alt=""></p>
 <p>而对于多通道图像来说，矩阵中的列会包含多个子列，子列数与通道数相等，如 BGR 颜色模型的矩阵为：</p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/29406263-file_1490017405477_1ada.png" alt=""></p>
-<h1 id="3-颜色缩减"><a href="#3-颜色缩减" class="headerlink" title="3. 颜色缩减"></a><strong>3. 颜色缩减</strong></h1><p>何谓颜色缩减？对于元素类型为 uchar 的单通道图像矩阵，每个像素点有 256 个灰度值，但是对于三通道图像，每个像素点的颜色种类达 16777216 种（256 的三次方）。如此多的颜色可能会对算法性能造成严重影响，我们往往只需要颜色的一部分，也能满足要求，因此引入了颜色缩减。</p>
+<h2 id="3-颜色缩减"><a href="#3-颜色缩减" class="headerlink" title="3. 颜色缩减"></a><strong>3. 颜色缩减</strong></h2><p>何谓颜色缩减？对于元素类型为 uchar 的单通道图像矩阵，每个像素点有 256 个灰度值，但是对于三通道图像，每个像素点的颜色种类达 16777216 种（256 的三次方）。如此多的颜色可能会对算法性能造成严重影响，我们往往只需要颜色的一部分，也能满足要求，因此引入了颜色缩减。</p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/25494428-file_1490017405949_8fda.png" alt=""></p>
 <p>如上图所示，左侧为颜色缩减前，右侧为颜色缩减后，数字表示灰度值。可以看出，灰度值 92 到 114 映射为 92；115 到 137 映射为 115，以此类推，左侧 164 种颜色缩减为右侧的 7 种颜色。实现方法也很简单：</p>
 <pre class=" language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">//color1输入,color2输出 </span>
@@ -243,13 +243,13 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
     color_table<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>i <span class="token operator">/</span> width <span class="token operator">*</span> width<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h1 id="4-图像遍历"><a href="#4-图像遍历" class="headerlink" title="4. 图像遍历"></a><strong>4. 图像遍历</strong></h1><p>有了颜色查找表后，我们便可以对图像进行遍历并对像素点进行颜色缩减了。我们采用了几种不同的图像遍历方法，为了对比它们的效率，采用 OpenCV 提供的两个简单的计时器函数 getTickCount() 和 getTickFrequency(), 它们分别返回 CPU 走过的时钟周期数和 CPU 一秒的时钟周期数。因此，可以这样来计时（单位：秒）：</p>
+<h2 id="4-图像遍历"><a href="#4-图像遍历" class="headerlink" title="4. 图像遍历"></a><strong>4. 图像遍历</strong></h2><p>有了颜色查找表后，我们便可以对图像进行遍历并对像素点进行颜色缩减了。我们采用了几种不同的图像遍历方法，为了对比它们的效率，采用 OpenCV 提供的两个简单的计时器函数 getTickCount() 和 getTickFrequency(), 它们分别返回 CPU 走过的时钟周期数和 CPU 一秒的时钟周期数。因此，可以这样来计时（单位：秒）：</p>
 <pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">double</span> time_begin <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">double</span><span class="token punctuation">)</span><span class="token function">getTickCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">// do something</span>
 <span class="token keyword">double</span> time_end <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">double</span><span class="token punctuation">)</span><span class="token function">getTickCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">double</span> time <span class="token operator">=</span> <span class="token punctuation">(</span>time_end <span class="token operator">-</span> time_begin<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token function">getTickFrequency</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h2 id="4-1-利用指针遍历"><a href="#4-1-利用指针遍历" class="headerlink" title="4.1 利用指针遍历"></a>4.1 利用指针遍历</h2><pre class=" language-cpp"><code class="language-cpp">Mat<span class="token operator">&amp;</span> <span class="token function">ScanImageAndReduceC</span><span class="token punctuation">(</span>Mat<span class="token operator">&amp;</span> I<span class="token punctuation">,</span> vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> color_table<span class="token punctuation">)</span>
+<h3 id="4-1-利用指针遍历"><a href="#4-1-利用指针遍历" class="headerlink" title="4.1 利用指针遍历"></a>4.1 利用指针遍历</h3><pre class=" language-cpp"><code class="language-cpp">Mat<span class="token operator">&amp;</span> <span class="token function">ScanImageAndReduceC</span><span class="token punctuation">(</span>Mat<span class="token operator">&amp;</span> I<span class="token punctuation">,</span> vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> color_table<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
      <span class="token comment" spellcheck="true">//只接收字符型矩阵</span>
      <span class="token function">CV_Assert</span><span class="token punctuation">(</span>I<span class="token punctuation">.</span><span class="token function">depth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>uchar<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -276,7 +276,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
 <p>颜色缩减结果（根据查找表的width设置缩减的程度，在此 width = 20）</p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/79119290-file_1490017405746_14c2e.png" alt=""></p>
 <p>算法执行时间为 0.0134007 秒。</p>
-<h2 id="4-2-利用迭代器遍历"><a href="#4-2-利用迭代器遍历" class="headerlink" title="4.2 利用迭代器遍历"></a>4.2 利用迭代器遍历</h2><pre class=" language-cpp"><code class="language-cpp">Mat<span class="token operator">&amp;</span> <span class="token function">ScanImageAndReduceIterator</span><span class="token punctuation">(</span>Mat<span class="token operator">&amp;</span> I<span class="token punctuation">,</span> vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> color_table<span class="token punctuation">)</span>
+<h3 id="4-2-利用迭代器遍历"><a href="#4-2-利用迭代器遍历" class="headerlink" title="4.2 利用迭代器遍历"></a>4.2 利用迭代器遍历</h3><pre class=" language-cpp"><code class="language-cpp">Mat<span class="token operator">&amp;</span> <span class="token function">ScanImageAndReduceIterator</span><span class="token punctuation">(</span>Mat<span class="token operator">&amp;</span> I<span class="token punctuation">,</span> vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> color_table<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
      <span class="token comment" spellcheck="true">//只接收字符型矩阵</span>
      <span class="token function">CV_Assert</span><span class="token punctuation">(</span>I<span class="token punctuation">.</span><span class="token function">depth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>uchar<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -306,7 +306,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
 <span class="token punctuation">}</span>
 </code></pre>
 <p>算法执行时间 0.0693951 秒。用迭代器遍历速度稍慢，但是更加安全。上述代码中，我们首先对图像的通道数进行判断，通道数为 1 时，直接对灰度值赋值；对于三通道彩色图像，每个像素可以看做一个包含三个 uchar 元素的 vector, 在 OpenCV 中用 Vec3b 命名。对于彩色图像，如果我们仅仅使用 uchar 而不是 Vec3b 迭代的话就只能获得蓝色通道的值（BGR模型中的第一个通道）。</p>
-<h2 id="4-3-通过相关返回值的-On-the-fly-地址遍历"><a href="#4-3-通过相关返回值的-On-the-fly-地址遍历" class="headerlink" title="4.3 通过相关返回值的 On-the-fly 地址遍历"></a>4.3 通过相关返回值的 On-the-fly 地址遍历</h2><pre class=" language-cpp"><code class="language-cpp">Mat<span class="token operator">&amp;</span> <span class="token function">ScanImageAndReduceRadomAccess</span><span class="token punctuation">(</span>Mat<span class="token operator">&amp;</span> I<span class="token punctuation">,</span> vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> color_table<span class="token punctuation">)</span>
+<h3 id="4-3-通过相关返回值的-On-the-fly-地址遍历"><a href="#4-3-通过相关返回值的-On-the-fly-地址遍历" class="headerlink" title="4.3 通过相关返回值的 On-the-fly 地址遍历"></a>4.3 通过相关返回值的 On-the-fly 地址遍历</h3><pre class=" language-cpp"><code class="language-cpp">Mat<span class="token operator">&amp;</span> <span class="token function">ScanImageAndReduceRadomAccess</span><span class="token punctuation">(</span>Mat<span class="token operator">&amp;</span> I<span class="token punctuation">,</span> vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> color_table<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
      <span class="token comment" spellcheck="true">//只接收字符型矩阵</span>
      <span class="token function">CV_Assert</span><span class="token punctuation">(</span>I<span class="token punctuation">.</span><span class="token function">depth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>uchar<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -342,7 +342,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
 <span class="token punctuation">}</span>
 </code></pre>
 <p>通过 at() 函数获取并更改图像中的元素。事实上，这种方法并不推荐呗用来进行图像扫描。</p>
-<h2 id="4-4-核心函数-LUT-The-Core-Function"><a href="#4-4-核心函数-LUT-The-Core-Function" class="headerlink" title="4.4 核心函数 LUT (The Core Function)"></a>4.4 核心函数 LUT (The Core Function)</h2><p>核心函数 LUT 是最被推荐用于实现批量图像元素查找和更改的方法，它并不需要你自己去扫描图像。我们先建立一个查找表：</p>
+<h3 id="4-4-核心函数-LUT-The-Core-Function"><a href="#4-4-核心函数-LUT-The-Core-Function" class="headerlink" title="4.4 核心函数 LUT (The Core Function)"></a>4.4 核心函数 LUT (The Core Function)</h3><p>核心函数 LUT 是最被推荐用于实现批量图像元素查找和更改的方法，它并不需要你自己去扫描图像。我们先建立一个查找表：</p>
 <pre class=" language-cpp"><code class="language-cpp">Mat <span class="token function">table</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">256</span><span class="token punctuation">,</span> CV_8U<span class="token punctuation">)</span><span class="token punctuation">;</span>
 uchar<span class="token operator">*</span> p <span class="token operator">=</span> table<span class="token punctuation">.</span>data<span class="token punctuation">;</span>
 <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">256</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
@@ -352,7 +352,7 @@ uchar<span class="token operator">*</span> p <span class="token operator">=</spa
 <pre class=" language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">//image是输入，image_reduce是输出</span>
 <span class="token function">LUT</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> table<span class="token punctuation">,</span> image_reduce<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h2 id="4-5-结论"><a href="#4-5-结论" class="headerlink" title="4.5 结论"></a>4.5 结论</h2><p>尽量使用 OpenCV 内置函数，调用 LUT 函数可以获得最快的速度，这是因为 OpenCV 库可以通过英特尔线程架构启用多线程，当然，迭代器也是一个不错的选择，优点是安全，缺点是速度较慢，on-the-fly方法不推荐使用。</p>
+<h3 id="4-5-结论"><a href="#4-5-结论" class="headerlink" title="4.5 结论"></a>4.5 结论</h3><p>尽量使用 OpenCV 内置函数，调用 LUT 函数可以获得最快的速度，这是因为 OpenCV 库可以通过英特尔线程架构启用多线程，当然，迭代器也是一个不错的选择，优点是安全，缺点是速度较慢，on-the-fly方法不推荐使用。</p>
 <hr>
 <p><a href="http://www.opencv.org.cn/opencvdoc/2.3.2/html/doc/tutorials/core/how_to_scan_images/how_to_scan_images.html#howtoscanimagesopencv" target="_blank" rel="external">More</a></p>
 ]]></content>
@@ -377,9 +377,9 @@ uchar<span class="token operator">*</span> p <span class="token operator">=</spa
     <entry>
       <title><![CDATA[OpenCV Mat 介绍]]></title>
       <url>https://knightaoko.github.io/2017/01/21/OpenCV%20Mat%20%E4%BB%8B%E7%BB%8D/</url>
-      <content type="html"><![CDATA[<h1 id="1-为什么要引入-Mat-图像容器？"><a href="#1-为什么要引入-Mat-图像容器？" class="headerlink" title="1. 为什么要引入 Mat 图像容器？"></a>1. 为什么要引入 Mat 图像容器？</h1><p>在计算机看来，一幅图像对应的是矩阵，矩阵包含了所有像素点的强度值。获取并存储这些像素值，可以使计算机图像处理简化为数值矩阵及描述矩阵信息的处理。OpenCV 是如何存储图像的呢？</p>
+      <content type="html"><![CDATA[<h2 id="1-为什么要引入-Mat-图像容器？"><a href="#1-为什么要引入-Mat-图像容器？" class="headerlink" title="1. 为什么要引入 Mat 图像容器？"></a>1. 为什么要引入 Mat 图像容器？</h2><p>在计算机看来，一幅图像对应的是矩阵，矩阵包含了所有像素点的强度值。获取并存储这些像素值，可以使计算机图像处理简化为数值矩阵及描述矩阵信息的处理。OpenCV 是如何存储图像的呢？</p>
 <p>2001年 OpenCV 刚出现的时候，是基于 C 语言接口而建的。为了在内存中存放图像，当时采用名为 IplImage 的 C 语言结构体。这种方法的最大弊端是：用户必须手动管理内存，一旦代码庞大，这便变得非常麻烦且容易出错。OpenCV 2.0 引入新的 C++ 接口，利用个自动内存管理给出了解决方案。</p>
-<h1 id="2-Mat-介绍"><a href="#2-Mat-介绍" class="headerlink" title="2. Mat 介绍"></a>2. Mat 介绍</h1><p>Mat 作为一个类，数据包括两个部分：矩阵头和指向像素矩阵的指针。</p>
+<h2 id="2-Mat-介绍"><a href="#2-Mat-介绍" class="headerlink" title="2. Mat 介绍"></a>2. Mat 介绍</h2><p>Mat 作为一个类，数据包括两个部分：矩阵头和指向像素矩阵的指针。</p>
 <table>
 <thead>
 <tr>
@@ -398,7 +398,7 @@ uchar<span class="token operator">*</span> p <span class="token operator">=</spa
 </tr>
 </tbody>
 </table>
-<h2 id="2-1-赋值和拷贝构造函数只拷贝信息头"><a href="#2-1-赋值和拷贝构造函数只拷贝信息头" class="headerlink" title="2.1 赋值和拷贝构造函数只拷贝信息头"></a>2.1 赋值和拷贝构造函数只拷贝信息头</h2><p>为了避免拷贝图像的巨大计算量，OpenCV 采用引用计数机制。即每个 Mat 对象有其自己的矩阵头，但可以共享同一个图像矩阵（即 Mat 对象的矩阵指针指向同一地址）。在 Mat 对象赋值及拷贝构造函数中，只拷贝矩阵头和矩阵指针，不拷贝矩阵本身，这样可以减少很多计算量。</p>
+<h3 id="2-1-赋值和拷贝构造函数只拷贝信息头"><a href="#2-1-赋值和拷贝构造函数只拷贝信息头" class="headerlink" title="2.1 赋值和拷贝构造函数只拷贝信息头"></a>2.1 赋值和拷贝构造函数只拷贝信息头</h3><p>为了避免拷贝图像的巨大计算量，OpenCV 采用引用计数机制。即每个 Mat 对象有其自己的矩阵头，但可以共享同一个图像矩阵（即 Mat 对象的矩阵指针指向同一地址）。在 Mat 对象赋值及拷贝构造函数中，只拷贝矩阵头和矩阵指针，不拷贝矩阵本身，这样可以减少很多计算量。</p>
 <p>这样我们会看到，同一个图像矩阵，可能属于多个 Mat 对象，那么当不需要图像矩阵时，哪个 Mat 对象负责清理它呢？正如 C++ 语法中的智能指针，Mat 规定最后一个使用矩阵的对象负责清理，这是根据矩阵的引用计数进行判断的，当引用计数为 0 时，矩阵会被清理。</p>
 <pre class=" language-cpp"><code class="language-cpp">Mat A<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// A 的引用计数为0</span>
 A <span class="token operator">=</span> <span class="token function">imread</span><span class="token punctuation">(</span><span class="token string">"E:/Code/CPP/OpenCV/Pictures/1.bmp"</span><span class="token punctuation">,</span> CV_LOAD_IMAGE_COLOR<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -412,7 +412,7 @@ cout <span class="token operator">&lt;&lt;</span> <span class="token string">"re
 </code></pre>
 <p>运行结果：</p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/61446613-file_1490016922912_2080.png" alt=""></p>
-<h2 id="2-2-使用-clone-或-copyTo-拷贝图像矩阵"><a href="#2-2-使用-clone-或-copyTo-拷贝图像矩阵" class="headerlink" title="2.2 使用 clone() 或 copyTo() 拷贝图像矩阵"></a>2.2 使用 clone() 或 copyTo() 拷贝图像矩阵</h2><p>那么有时候我们的确需要拷贝矩阵本身呢？可以用 Mat 的成员函数 clone() 或者 copyTo()。</p>
+<h3 id="2-2-使用-clone-或-copyTo-拷贝图像矩阵"><a href="#2-2-使用-clone-或-copyTo-拷贝图像矩阵" class="headerlink" title="2.2 使用 clone() 或 copyTo() 拷贝图像矩阵"></a>2.2 使用 clone() 或 copyTo() 拷贝图像矩阵</h3><p>那么有时候我们的确需要拷贝矩阵本身呢？可以用 Mat 的成员函数 clone() 或者 copyTo()。</p>
 <pre class=" language-cpp"><code class="language-cpp">Mat im1 <span class="token operator">=</span><span class="token function">imread</span><span class="token punctuation">(</span><span class="token string">"E:/Code/CPP/OpenCV/Pictures/1.bmp"</span><span class="token punctuation">,</span>
 CV_LOAD_IMAGE_COLOR<span class="token punctuation">)</span><span class="token punctuation">;</span>
 Mat im2 <span class="token operator">=</span> im1<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//矩阵内容拷贝</span>
@@ -420,12 +420,12 @@ Mat im3<span class="token punctuation">;</span>
 im1<span class="token punctuation">.</span><span class="token function">copyTo</span><span class="token punctuation">(</span>im3<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//矩阵内容拷贝</span>
 </code></pre>
 <p>上面的代码中，im1, im2, im3的引用计数都为1，因为它们并没有共享底层矩阵。</p>
-<h1 id="3-使用-Mat"><a href="#3-使用-Mat" class="headerlink" title="3. 使用 Mat"></a>3. 使用 Mat</h1><h2 id="3-1-创建-Mat"><a href="#3-1-创建-Mat" class="headerlink" title="3.1 创建 Mat"></a>3.1 创建 Mat</h2><h3 id="通过构造函数创建："><a href="#通过构造函数创建：" class="headerlink" title="通过构造函数创建："></a>通过构造函数创建：</h3><pre class=" language-cpp"><code class="language-cpp">Mat <span class="token function">M</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> CV_8UC3<span class="token punctuation">,</span> <span class="token function">Scalar</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h2 id="3-使用-Mat"><a href="#3-使用-Mat" class="headerlink" title="3. 使用 Mat"></a>3. 使用 Mat</h2><h3 id="3-1-创建-Mat"><a href="#3-1-创建-Mat" class="headerlink" title="3.1 创建 Mat"></a>3.1 创建 Mat</h3><h4 id="通过构造函数创建："><a href="#通过构造函数创建：" class="headerlink" title="通过构造函数创建："></a>通过构造函数创建：</h4><pre class=" language-cpp"><code class="language-cpp">Mat <span class="token function">M</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> CV_8UC3<span class="token punctuation">,</span> <span class="token function">Scalar</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 cout <span class="token operator">&lt;&lt;</span> <span class="token string">"M = "</span> <span class="token operator">&lt;&lt;</span> endl <span class="token operator">&lt;&lt;</span> <span class="token string">" "</span> <span class="token operator">&lt;&lt;</span> M <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 </code></pre>
 <p>上述程序创建了 2X2 的像素图像，每个像素有三个通道，CV_8UC3 表示使用 8 位 unsigned char 表示三通道，用 Scalar 进行初始化，值得注意是的，Mat 三通道依次是 BGR，而不是我们熟知的 RGB。OpenCV 也重载了 &lt;&lt; 运算符，因此，直接可以用标准输出对 Mat 对象进行输出，运行结果为：</p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/75183952-file_1490016923037_12546.png" alt=""></p>
-<h3 id="通过-create-创建："><a href="#通过-create-创建：" class="headerlink" title="通过 create() 创建："></a>通过 create() 创建：</h3><pre class=" language-cpp"><code class="language-cpp">Mat M<span class="token punctuation">;</span>
+<h4 id="通过-create-创建："><a href="#通过-create-创建：" class="headerlink" title="通过 create() 创建："></a>通过 create() 创建：</h4><pre class=" language-cpp"><code class="language-cpp">Mat M<span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">//create不能指定初始值, CV_8UC(4)为自定义通道数</span>
 M<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token function">CV_8UC</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
 cout <span class="token operator">&lt;&lt;</span> <span class="token string">"M = "</span> <span class="token operator">&lt;&lt;</span> endl <span class="token operator">&lt;&lt;</span> <span class="token string">" "</span> <span class="token operator">&lt;&lt;</span> M <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
@@ -433,7 +433,7 @@ cout <span class="token operator">&lt;&lt;</span> <span class="token string">"M 
 <p>运行结果：</p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/79319227-file_1490016923144_842f.png" alt=""></p>
 <p>可以看出，create 并不能设定初始值，元素默认初始化为 205。另外，我们可以使用 CV_8UC(n)自定义n维通道。</p>
-<h3 id="静态函数-zeros-ones-eyes"><a href="#静态函数-zeros-ones-eyes" class="headerlink" title="静态函数 zeros(), ones(), eyes()"></a>静态函数 zeros(), ones(), eyes()</h3><table>
+<h4 id="静态函数-zeros-ones-eyes"><a href="#静态函数-zeros-ones-eyes" class="headerlink" title="静态函数 zeros(), ones(), eyes()"></a>静态函数 zeros(), ones(), eyes()</h4><table>
 <thead>
 <tr>
 <th>静态函数</th>
@@ -455,7 +455,7 @@ cout <span class="token operator">&lt;&lt;</span> <span class="token string">"M 
 </tr>
 </tbody>
 </table>
-<h2 id="3-2-格式化输出"><a href="#3-2-格式化输出" class="headerlink" title="3.2 格式化输出"></a>3.2 格式化输出</h2><p>OpenCV 支持多种输出方式，如默认方式、Python 格式、CSV 格式，Numpy 格式以及 C 语言格式。</p>
+<h3 id="3-2-格式化输出"><a href="#3-2-格式化输出" class="headerlink" title="3.2 格式化输出"></a>3.2 格式化输出</h3><p>OpenCV 支持多种输出方式，如默认方式、Python 格式、CSV 格式，Numpy 格式以及 C 语言格式。</p>
 <pre class=" language-cpp"><code class="language-cpp">Mat <span class="token function">M</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> CV_8UC3<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">randu</span><span class="token punctuation">(</span>M<span class="token punctuation">,</span> Scalar<span class="token operator">::</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Scalar<span class="token operator">::</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Default fomart: "</span> <span class="token operator">&lt;&lt;</span> endl <span class="token operator">&lt;&lt;</span> <span class="token string">" "</span> <span class="token operator">&lt;&lt;</span> M <span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
@@ -492,15 +492,15 @@ cout <span class="token operator">&lt;&lt;</span> <span class="token string">"C 
       <title><![CDATA[OpenCV 读取、修改、保存图像]]></title>
       <url>https://knightaoko.github.io/2017/01/21/OpenCV%20%E8%AF%BB%E5%8F%96%E3%80%81%E4%BF%AE%E6%94%B9%E3%80%81%E4%BF%9D%E5%AD%98%E5%9B%BE%E5%83%8F/</url>
       <content type="html"><![CDATA[<p>OpenCV 图像保存格式之一为 cv::Mat, 常用 imread 进行图像读取，用 imwrite 进行图像保存，用 imshow 进行图像显示。</p>
-<h1 id="1-读取图像"><a href="#1-读取图像" class="headerlink" title="1. 读取图像"></a>1. 读取图像</h1><p>OpenCV 图像保存格式之一为 cv::Mat, 常用 imread 进行图像读取：</p>
+<h2 id="1-读取图像"><a href="#1-读取图像" class="headerlink" title="1. 读取图像"></a>1. 读取图像</h2><p>OpenCV 图像保存格式之一为 cv::Mat, 常用 imread 进行图像读取：</p>
 <pre class=" language-cpp"><code class="language-cpp">Mat image<span class="token punctuation">;</span>
 image <span class="token operator">=</span> <span class="token function">imread</span><span class="token punctuation">(</span><span class="token string">"E:/Code/CPP/OpenCV/Pictures/1.bmp"</span><span class="token punctuation">,</span> CV_LOAD_IMAGE_COLOR<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h1 id="2-彩色图像转换为灰度图像"><a href="#2-彩色图像转换为灰度图像" class="headerlink" title="2. 彩色图像转换为灰度图像"></a>2. 彩色图像转换为灰度图像</h1><pre class=" language-cpp"><code class="language-cpp">Mat gray_image<span class="token punctuation">;</span>
+<h2 id="2-彩色图像转换为灰度图像"><a href="#2-彩色图像转换为灰度图像" class="headerlink" title="2. 彩色图像转换为灰度图像"></a>2. 彩色图像转换为灰度图像</h2><pre class=" language-cpp"><code class="language-cpp">Mat gray_image<span class="token punctuation">;</span>
 <span class="token function">cvtColor</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> gray_image<span class="token punctuation">,</span> CV_BGR2GRAY<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>第三个参数指定转换类型，在此为 CV_BGR2GRAY</p>
-<h1 id="3-图像保存与显示"><a href="#3-图像保存与显示" class="headerlink" title="3. 图像保存与显示"></a>3. 图像保存与显示</h1><p>我们用 imwrite 进行图像保存，用 imshow 进行图像显示，如：</p>
+<h2 id="3-图像保存与显示"><a href="#3-图像保存与显示" class="headerlink" title="3. 图像保存与显示"></a>3. 图像保存与显示</h2><p>我们用 imwrite 进行图像保存，用 imshow 进行图像显示，如：</p>
 <pre class=" language-cpp"><code class="language-cpp"><span class="token function">imwrite</span><span class="token punctuation">(</span><span class="token string">"E:/Code/CPP/OpenCV/Pictures/1_gray.bmp"</span><span class="token punctuation">,</span> gray_image<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">imshow</span><span class="token punctuation">(</span><span class="token string">"image"</span><span class="token punctuation">,</span> image<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">imshow</span><span class="token punctuation">(</span><span class="token string">"gray_image"</span><span class="token punctuation">,</span> gray_image<span class="token punctuation">)</span><span class="token punctuation">;</span>

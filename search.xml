@@ -120,7 +120,7 @@
 <h2 id="2-hello-程序编译"><a href="#2-hello-程序编译" class="headerlink" title="2. hello 程序编译"></a><strong>2. hello 程序编译</strong></h2><h3 id="2-1-编译系统"><a href="#2-1-编译系统" class="headerlink" title="2.1 编译系统"></a>2.1 编译系统</h3><p>前面创建的 hello.c 程序是一个高级 C 语言程序，我们能够读懂，但计算机系统不懂。必须把高级语言转化为计算机系统能够执行的低级机器语言指令，得到的是可执行目标文件 hello。从源程序文件 hello.c 到可执行目标文件 hello，编译过程分为四个阶段：预处理阶段、编译阶段、汇编阶段和链接阶段，这四个阶段分别由预处理器、编译器、汇编器和链接器完成，它们一起构成了编译系统。</p>
 <p><img src="http://on2kkr82s.bkt.clouddn.com/17-3-20/43933800-file_1490015481069_ff32.png" alt=""></p>
 <ul>
-<li><strong>预处理阶段</strong>。预处理器根据以 ## 字符开头的命令，向源程序添加相应的头文件。如 hello.c 第一行的 #include，预处理器读取系统头文件 stdio.h，并将其直接插入到程序文本，得到 hello.i 文件。</li>
+<li><strong>预处理阶段</strong>。预处理器根据以 # 字符开头的命令，向源程序添加相应的头文件。如 hello.c 第一行的 #include，预处理器读取系统头文件 stdio.h，并将其直接插入到程序文本，得到 hello.i 文件。</li>
 <li><strong>编译阶段</strong>。编译器将 hello.i 翻译成汇编程序文件 hello.s。</li>
 <li><strong>汇编阶段</strong>。汇编器将汇编程序文件 hello.s 翻译成机器语言指令，并将指令打包成可重定位目标程序，保存在 hello.o 中。hello.o 是二进制文件，而不是文本文件，因此用文本编辑器打开，发现是一堆乱码。</li>
 <li><strong>链接阶段</strong>。hello 程序调用了 printf 函数，这个函数存在于已经编译好的 printf.o 中，链接器负责将 .o 文件合并，得到一个可执行目标文件 hello，可以被加载到内存中，由系统执行。</li>
@@ -204,14 +204,14 @@
       
         <categories>
             
-            <category> Computer systems </category>
+            <category> Computer Systems </category>
             
         </categories>
         
         
         <tags>
             
-            <tag> Computer systems </tag>
+            <tag> Computer Systems </tag>
             
             <tag> 计算机基础 </tag>
             
